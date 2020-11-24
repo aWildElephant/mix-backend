@@ -1,0 +1,30 @@
+# MIXAL
+
+## Colonnes
+
+LOC	OP	ADDRESS	REMARKS
+
+## Types de lignes
+
+### Commentaire
+
+ligne commençant par *
+
+### déclaration de constante à la #define
+
+X	EQU	1000
+
+les occurences de X seront remplacées par 1000 dans le programme
+
+### pseudo-opération CON
+
+	CON	2
+
+- les constantes litérales sont automatiquement crées par l'assembleur	
+- comment on utilise ce truc ?
+
+### ORIG
+
+je sé pa
+
+### 
