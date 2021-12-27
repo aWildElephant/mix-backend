@@ -1,10 +1,7 @@
 package fr.awildelephant.mmix.emulator.parser.lexer;
 
 import fr.awildelephant.mmix.emulator.parser.input.InputWithLookup;
-import fr.awildelephant.mmix.emulator.parser.lexer.token.IntegerToken;
-import fr.awildelephant.mmix.emulator.parser.lexer.token.OperationToken;
-import fr.awildelephant.mmix.emulator.parser.lexer.token.SpecialToken;
-import fr.awildelephant.mmix.emulator.parser.lexer.token.Token;
+import fr.awildelephant.mmix.emulator.parser.lexer.token.*;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
@@ -44,7 +41,7 @@ public final class Lexer {
         final String tokenString = nextTokenString();
 
         if (tokenString == null) {
-            return null;
+            return EndOfFileToken.INSTANCE;
         }
 
         switch (tokenString) {

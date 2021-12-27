@@ -1,6 +1,7 @@
 package fr.awildelephant.mmix.emulator.parser.lexer;
 
 import fr.awildelephant.mmix.emulator.parser.input.InputWithLookup;
+import fr.awildelephant.mmix.emulator.parser.lexer.token.EndOfFileToken;
 import fr.awildelephant.mmix.emulator.parser.lexer.token.Token;
 import org.assertj.core.api.AbstractThrowableAssert;
 
@@ -34,7 +35,7 @@ public final class LexerHelperTest {
         final List<Token> actualTokens = new ArrayList<>();
 
         Token token;
-        while ((token = lexer.nextToken()) != null) {
+        while ((token = lexer.nextToken()) != EndOfFileToken.INSTANCE) {
             actualTokens.add(token);
         }
         return actualTokens;

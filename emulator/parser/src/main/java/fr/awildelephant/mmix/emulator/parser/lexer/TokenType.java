@@ -156,5 +156,8 @@ public enum TokenType {
     CMP4,
     CMP5,
     CMP6,
-    CMPX
+    CMPX,
+
+    // File
+    END_OF_FILE
 }
