@@ -37,7 +37,21 @@ public final class Lexer {
 
     private final InputWithLookup input;
 
-    public Token nextToken() throws IOException {
+    private Token lookup;
+
+    public Token lookup() throws IOException {
+        if (lookup == null) {
+            consume();
+        }
+
+        return lookup;
+    }
+
+    public void consume() throws IOException {
+        lookup = nextToken();
+    }
+
+    private Token nextToken() throws IOException {
         final String tokenString = nextTokenString();
 
         if (tokenString == null) {

@@ -35,8 +35,9 @@ public final class LexerHelperTest {
         final List<Token> actualTokens = new ArrayList<>();
 
         Token token;
-        while ((token = lexer.nextToken()) != EndOfFileToken.INSTANCE) {
+        while ((token = lexer.lookup()) != EndOfFileToken.INSTANCE) {
             actualTokens.add(token);
+            lexer.consume();
         }
         return actualTokens;
     }
