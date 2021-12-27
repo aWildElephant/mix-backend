@@ -5,7 +5,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
@@ -19,7 +18,7 @@ public class OperatorLexerTest {
 
     @ParameterizedTest
     @MethodSource("parameters")
-    void it_should_tokenize_any_operator(String text, TokenType expectedToken) throws IOException {
+    void it_should_tokenize_any_operator(String text, TokenType expectedToken) {
         assertTokenization(text, List.of(new OperationToken(expectedToken, text)));
     }
 

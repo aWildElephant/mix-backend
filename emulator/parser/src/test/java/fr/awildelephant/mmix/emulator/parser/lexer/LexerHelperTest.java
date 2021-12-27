@@ -23,13 +23,13 @@ public final class LexerHelperTest {
         return assertThatThrownBy(() -> tokenize(input));
     }
 
-    static void assertTokenization(String input, List<Token> expectedTokens) throws IOException {
+    static void assertTokenization(String input, List<Token> expectedTokens) {
         final List<Token> actualTokens = tokenize(input);
 
         assertThat(actualTokens).isEqualTo(expectedTokens);
     }
 
-    private static List<Token> tokenize(String input) throws IOException {
+    private static List<Token> tokenize(String input) {
         final Lexer lexer = new Lexer(new InputWithLookup(inputStream(input)));
 
         final List<Token> actualTokens = new ArrayList<>();

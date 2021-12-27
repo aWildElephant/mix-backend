@@ -1,5 +1,7 @@
 package fr.awildelephant.mmix.emulator.parser.lexer;
 
+import fr.awildelephant.mmix.emulator.parser.error.ReadingException;
+import fr.awildelephant.mmix.emulator.parser.error.UnknownTokenException;
 import fr.awildelephant.mmix.emulator.parser.input.InputWithLookup;
 import fr.awildelephant.mmix.emulator.parser.lexer.token.*;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +41,7 @@ public final class Lexer {
 
     private Token lookup;
 
-    public Token lookup() throws IOException {
+    public Token lookup() {
         if (lookup == null) {
             consume();
         }
@@ -47,40 +49,44 @@ public final class Lexer {
         return lookup;
     }
 
-    public void consume() throws IOException {
+    public void consume() {
         lookup = nextToken();
     }
 
-    private Token nextToken() throws IOException {
-        final String tokenString = nextTokenString();
-
-        if (tokenString == null) {
-            return EndOfFileToken.INSTANCE;
-        }
-
-        switch (tokenString) {
-            case "(":
-                return SpecialToken.LEFT_PARENTHESIS;
-            case ")":
-                return SpecialToken.RIGHT_PARENTHESIS;
-            case ":":
-                return SpecialToken.COLON;
-            case ",":
-                return SpecialToken.COMMA;
-        }
-
-        final TokenType operator = operatorMap.get(tokenString.toUpperCase());
-        if (operator != null) {
-            return new OperationToken(operator, tokenString);
-        }
-
+    private Token nextToken() {
         try {
-            return new IntegerToken(Integer.parseInt(tokenString));
-        } catch (NumberFormatException e) {
-            // NOP
-        }
+            final String tokenString = nextTokenString();
 
-        throw new UnknownTokenException(tokenString);
+            if (tokenString == null) {
+                return EndOfFileToken.INSTANCE;
+            }
+
+            switch (tokenString) {
+                case "(":
+                    return SpecialToken.LEFT_PARENTHESIS;
+                case ")":
+                    return SpecialToken.RIGHT_PARENTHESIS;
+                case ":":
+                    return SpecialToken.COLON;
+                case ",":
+                    return SpecialToken.COMMA;
+            }
+
+            final TokenType operator = operatorMap.get(tokenString.toUpperCase());
+            if (operator != null) {
+                return new OperationToken(operator, tokenString);
+            }
+
+            try {
+                return new IntegerToken(Integer.parseInt(tokenString));
+            } catch (NumberFormatException e) {
+                // NOP
+            }
+
+            throw new UnknownTokenException(tokenString);
+        } catch (IOException e) {
+            throw new ReadingException(e);
+        }
     }
 
     private String nextTokenString() throws IOException {
