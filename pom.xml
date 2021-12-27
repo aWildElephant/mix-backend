@@ -24,6 +24,11 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>fr.awildelephant</groupId>
+                <artifactId>instruction</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>1.18.22</version>
