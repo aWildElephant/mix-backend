@@ -1,6 +1,7 @@
 package fr.awildelephant.mmix.emulator.parser.lexer;
 
 import fr.awildelephant.mmix.emulator.parser.input.InputWithLookup;
+import fr.awildelephant.mmix.emulator.parser.lexer.token.Token;
 import org.assertj.core.api.AbstractThrowableAssert;
 
 import java.io.ByteArrayInputStream;

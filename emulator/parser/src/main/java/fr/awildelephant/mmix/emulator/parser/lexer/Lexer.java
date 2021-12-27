@@ -1,6 +1,10 @@
 package fr.awildelephant.mmix.emulator.parser.lexer;
 
 import fr.awildelephant.mmix.emulator.parser.input.InputWithLookup;
+import fr.awildelephant.mmix.emulator.parser.lexer.token.IntegerToken;
+import fr.awildelephant.mmix.emulator.parser.lexer.token.OperationToken;
+import fr.awildelephant.mmix.emulator.parser.lexer.token.SpecialToken;
+import fr.awildelephant.mmix.emulator.parser.lexer.token.Token;
 import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
@@ -45,24 +49,22 @@ public final class Lexer {
 
         switch (tokenString) {
             case "(":
-                return new Token(LEFT_PARENTHESIS, tokenString);
+                return SpecialToken.LEFT_PARENTHESIS;
             case ")":
-                return new Token(RIGHT_PARENTHESIS, tokenString);
+                return SpecialToken.RIGHT_PARENTHESIS;
             case ":":
-                return new Token(COLON, tokenString);
+                return SpecialToken.COLON;
             case ",":
-                return new Token(COMMA, tokenString);
+                return SpecialToken.COMMA;
         }
 
         final TokenType operator = operatorMap.get(tokenString.toUpperCase());
         if (operator != null) {
-            return new Token(operator, tokenString);
+            return new OperationToken(operator, tokenString);
         }
 
         try {
-            Integer.parseInt(tokenString);
-
-            return new Token(VALUE, tokenString);
+            return new IntegerToken(Integer.parseInt(tokenString));
         } catch (NumberFormatException e) {
             // NOP
         }

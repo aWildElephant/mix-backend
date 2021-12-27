@@ -1,5 +1,6 @@
 package fr.awildelephant.mmix.emulator.parser.lexer;
 
+import fr.awildelephant.mmix.emulator.parser.lexer.token.OperationToken;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -19,7 +20,7 @@ public class OperatorLexerTest {
     @ParameterizedTest
     @MethodSource("parameters")
     void it_should_tokenize_any_operator(String text, TokenType expectedToken) throws IOException {
-        assertTokenization(text, List.of(new Token(expectedToken, text)));
+        assertTokenization(text, List.of(new OperationToken(expectedToken, text)));
     }
 
     private static Stream<Arguments> parameters() {

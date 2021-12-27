@@ -1,5 +1,8 @@
 package fr.awildelephant.mmix.emulator.parser.lexer;
 
+import fr.awildelephant.mmix.emulator.parser.lexer.token.IntegerToken;
+import fr.awildelephant.mmix.emulator.parser.lexer.token.OperationToken;
+import fr.awildelephant.mmix.emulator.parser.lexer.token.SpecialToken;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -13,29 +16,29 @@ class LexerTest {
 
     @Test
     void it_should_tokenize_a_single_operator() throws IOException {
-        assertTokenization("ADD", List.of(new Token(TokenType.ADD, "ADD")));
+        assertTokenization("ADD", List.of(new OperationToken(TokenType.ADD, "ADD")));
     }
 
     @Test
     void it_should_conserve_case_for_operator_text() throws IOException {
-        assertTokenization("aDd", List.of(new Token(ADD, "aDd")));
+        assertTokenization("aDd", List.of(new OperationToken(ADD, "aDd")));
     }
 
     @Test
     void it_should_ignore_spaces_between_tokens() throws IOException {
         assertTokenization("ADD   CHAR", List.of(
-                new Token(ADD, "ADD"),
-                new Token(CHAR, "CHAR")
+                new OperationToken(ADD, "ADD"),
+                new OperationToken(CHAR, "CHAR")
         ));
     }
 
     @Test
     void it_should_tokenize_special_characters() throws IOException {
         assertTokenization(", ( : )", List.of(
-                new Token(COMMA, ","),
-                new Token(LEFT_PARENTHESIS, "("),
-                new Token(COLON, ":"),
-                new Token(RIGHT_PARENTHESIS, ")")
+                SpecialToken.COMMA,
+                SpecialToken.LEFT_PARENTHESIS,
+                SpecialToken.COLON,
+                SpecialToken.RIGHT_PARENTHESIS
         ));
     }
 
@@ -47,13 +50,13 @@ class LexerTest {
     @Test
     void it_should_tokenize_valid_tokens_in_the_wrong_order() throws IOException {
         assertTokenization("420 ADD(NOP,:)", List.of(
-                new Token(VALUE, "420"),
-                new Token(ADD, "ADD"),
-                new Token(LEFT_PARENTHESIS, "("),
-                new Token(NOP, "NOP"),
-                new Token(COMMA, ","),
-                new Token(COLON, ":"),
-                new Token(RIGHT_PARENTHESIS, ")")
+                new IntegerToken(420),
+                new OperationToken(ADD, "ADD"),
+                SpecialToken.LEFT_PARENTHESIS,
+                new OperationToken(NOP, "NOP"),
+                SpecialToken.COMMA,
+                SpecialToken.COLON,
+                SpecialToken.RIGHT_PARENTHESIS
         ));
     }
 }
