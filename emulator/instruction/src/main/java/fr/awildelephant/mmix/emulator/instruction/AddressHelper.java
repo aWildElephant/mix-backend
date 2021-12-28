@@ -9,7 +9,7 @@ public final class AddressHelper {
     }
 
     public static Address toAddress(int value) {
-        final byte sign = value >= 0 ? ByteHelper.b1 : ByteHelper.b0;
+        final byte sign = value >= 0 ? ByteHelper.b0 : ByteHelper.b1;
         final int valueAbs = Math.abs(value);
         final byte secondByte = extractByte(valueAbs);
         final byte firstByte = extractByte(valueAbs >>> 8);
@@ -26,7 +26,7 @@ public final class AddressHelper {
         result *= 256;
         result += address.getB2() + 128;
 
-        if (address.getSign() == ByteHelper.b0) {
+        if (address.getSign() % 2 == 1) {
             result = -result;
         }
 
