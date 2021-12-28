@@ -5,5 +5,7 @@ import lombok.Value;
 @Value
 public class Address {
 
-    byte[] value;
+    byte sign;
+    byte b1;
+    byte b2;
 }

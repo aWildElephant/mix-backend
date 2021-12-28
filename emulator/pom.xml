@@ -13,6 +13,7 @@
         <module>engine</module>
         <module>parser</module>
         <module>instruction</module>
+        <module>word</module>
     </modules>
 
     <artifactId>emulator</artifactId>

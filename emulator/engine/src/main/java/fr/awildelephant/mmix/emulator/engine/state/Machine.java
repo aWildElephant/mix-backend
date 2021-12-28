@@ -1,15 +1,13 @@
 package fr.awildelephant.mmix.emulator.engine.state;
 
-public class MIXState {
-
-    public static final int MEMORY_SIZE_IN_WORDS = 4000;
+public class Machine {
 
     private final SignedFiveBytesRegister registerA = new SignedFiveBytesRegister();
 
     private final OverflowToggle overflowToggle = new OverflowToggle();
     private final ComparisonIndicator comparisonIndicator = new ComparisonIndicator();
 
-    private final Memory memory = new Memory(MEMORY_SIZE_IN_WORDS);
+    private final Memory memory = new Memory();
 
     public SignedFiveBytesRegister getARegister() {
         return registerA;

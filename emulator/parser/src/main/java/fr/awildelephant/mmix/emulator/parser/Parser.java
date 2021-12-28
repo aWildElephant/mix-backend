@@ -6,6 +6,7 @@ import fr.awildelephant.mmix.emulator.parser.input.InputWithLookup;
 import fr.awildelephant.mmix.emulator.parser.lexer.Lexer;
 import fr.awildelephant.mmix.emulator.parser.lexer.TokenType;
 import fr.awildelephant.mmix.emulator.parser.lexer.token.*;
+import fr.awildelephant.mmix.emulator.word.ByteHelper;
 
 import java.io.InputStream;
 import java.util.ArrayList;

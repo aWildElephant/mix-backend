@@ -1,4 +1,4 @@
-package fr.awildelephant.mmix.emulator.instruction;
+package fr.awildelephant.mmix.emulator.word;
 
 public final class ByteHelper {
 

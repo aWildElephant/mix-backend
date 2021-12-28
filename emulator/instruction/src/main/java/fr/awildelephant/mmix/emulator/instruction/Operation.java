@@ -2,7 +2,7 @@ package fr.awildelephant.mmix.emulator.instruction;
 
 import lombok.Getter;
 
-import static fr.awildelephant.mmix.emulator.instruction.ByteHelper.*;
+import static fr.awildelephant.mmix.emulator.word.ByteHelper.*;
 
 @Getter
 public enum Operation {
@@ -167,5 +167,18 @@ public enum Operation {
     Operation(byte code, byte modification) {
         this.code = code;
         this.modification = modification;
+    }
+
+    public static Operation fromOperationCodeAndModification(byte operationCode, byte modification) {
+        for (Operation value : values()) {
+            if (value.getCode() == operationCode) {
+                final byte expectedModification = value.getModification();
+                if (expectedModification == -1 || expectedModification == modification) {
+                    return value;
+                }
+            }
+        }
+
+        throw new IllegalArgumentException();
     }
 }
