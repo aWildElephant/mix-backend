@@ -2,17 +2,13 @@ package fr.awildelephant.mmix.emulator.instruction;
 
 import fr.awildelephant.mmix.emulator.word.Word;
 
-public final class FieldSpecificationHelper {
+public final class FieldSpecificationService {
 
-    private FieldSpecificationHelper() {
-
-    }
-
-    public static Word applySpecification(byte value, Word newContent) {
+    public Word applySpecification(byte value, Word newContent) {
         return applySpecification(value, newContent, Word.emptyWord());
     }
 
-    public static Word applySpecification(byte value, Word newContent, Word originalContent) {
+    public Word applySpecification(byte value, Word newContent, Word originalContent) {
         final int l = value >>> 3;
         final int r = value % 8;
 
@@ -59,6 +55,5 @@ public final class FieldSpecificationHelper {
         }
 
         return new Word(sign, b1, b2, b3, b4, b5);
-
     }
 }

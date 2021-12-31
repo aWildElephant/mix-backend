@@ -20,7 +20,9 @@ public class Program {
 
         final Set<StateModification> modificationsToApply = executor.apply(machine, instruction);
 
-        // TODO: apply modifications, get to next instruction
+        modificationsToApply.forEach(modification -> modification.accept(machine));
+
+        // TODO: get to next instruction
     }
 
     private Instruction loadInstruction(Machine machine, Address address) {
