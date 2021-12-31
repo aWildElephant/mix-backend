@@ -2,11 +2,11 @@ package fr.awildelephant.mmix.emulator.instruction;
 
 import org.junit.jupiter.api.Test;
 
-import static fr.awildelephant.mmix.emulator.instruction.AddressHelper.toAddress;
-import static fr.awildelephant.mmix.emulator.instruction.AddressHelper.toInteger;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class AddressHelperTest {
+class AddressServiceTest {
+
+    private final AddressService addressService = new AddressService();
 
     @Test
     void it_should_transform_0() {
@@ -24,6 +24,6 @@ class AddressHelperTest {
     }
 
     private void assertValidTransformation(int value) {
-        assertThat(toInteger(toAddress(value))).isEqualTo(value);
+        assertThat(addressService.toInteger(addressService.toAddress(value))).isEqualTo(value);
     }
 }

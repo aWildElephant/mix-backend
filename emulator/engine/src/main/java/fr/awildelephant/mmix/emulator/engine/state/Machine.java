@@ -1,13 +1,17 @@
 package fr.awildelephant.mmix.emulator.engine.state;
 
-public class Machine {
+import fr.awildelephant.mmix.emulator.instruction.AddressService;
+
+public final class Machine {
 
     private final SignedFiveBytesRegister registerA = new SignedFiveBytesRegister();
-
     private final OverflowToggle overflowToggle = new OverflowToggle();
     private final ComparisonIndicator comparisonIndicator = new ComparisonIndicator();
+    private final Memory memory;
 
-    private final Memory memory = new Memory();
+    public Machine(AddressService addressService) {
+        memory = new Memory(addressService);
+    }
 
     public SignedFiveBytesRegister getARegister() {
         return registerA;

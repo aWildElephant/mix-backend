@@ -7,6 +7,7 @@ import fr.awildelephant.mmix.emulator.parser.lexer.Lexer;
 import fr.awildelephant.mmix.emulator.parser.lexer.TokenType;
 import fr.awildelephant.mmix.emulator.parser.lexer.token.*;
 import fr.awildelephant.mmix.emulator.word.ByteHelper;
+import lombok.RequiredArgsConstructor;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -16,7 +17,10 @@ import static fr.awildelephant.mmix.emulator.instruction.Operation.*;
 import static fr.awildelephant.mmix.emulator.parser.lexer.TokenType.VALUE;
 
 // TODO: explanation on what went wrong for parsing errors
+@RequiredArgsConstructor
 public final class Parser {
+
+    private final AddressService addressService;
 
     public InstructionSequence parse(InputStream inputStream) {
         final Lexer lexer = new Lexer(new InputWithLookup(inputStream));
@@ -215,7 +219,7 @@ public final class Parser {
         final Token t0 = lexer.lookup();
 
         if (t0 instanceof IntegerToken addressToken) {
-            instructionBuilder.address(AddressHelper.toAddress(addressToken.getValue()));
+            instructionBuilder.address(addressService.toAddress(addressToken.getValue()));
             lexer.consume();
 
             if (lexer.lookup() == SpecialToken.COMMA) {
