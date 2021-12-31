@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>fr.awildelephant</groupId>
-    <artifactId>mmix-backend</artifactId>
+    <artifactId>mix-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>mmix-backend</name>
+    <name>mix-backend</name>
     <description>Demo project for Spring Boot</description>
 
     <modules>
