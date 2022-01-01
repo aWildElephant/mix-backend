@@ -5,12 +5,12 @@ import fr.awildelephant.mix.emulator.word.Word;
 import lombok.Value;
 
 @Value
-public class SetARegister implements StateModification {
+public class SetXRegister implements StateModification {
 
     Word newValue;
 
     @Override
     public void accept(Machine machine) {
-        machine.getRegisterA().setWord(newValue);
+        machine.getRegisterX().setWord(newValue);
     }
 }
