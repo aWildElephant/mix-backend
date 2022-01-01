@@ -8,6 +8,7 @@ public final class Machine {
 
     private final SignedFiveBytesRegister registerA = new SignedFiveBytesRegister();
     private final SignedFiveBytesRegister registerX = new SignedFiveBytesRegister();
+    private final TwoBytesSignedRegister rI1 = new TwoBytesSignedRegister();
     private final OverflowToggle overflowToggle = new OverflowToggle();
     private final ComparisonIndicator comparisonIndicator = new ComparisonIndicator();
     private final Memory memory;
