@@ -10,6 +10,7 @@ import lombok.Value;
 
 import java.util.Set;
 
+// TODO: bootstraping the program by writing instructions to memory
 @Value
 public class Program {
 
