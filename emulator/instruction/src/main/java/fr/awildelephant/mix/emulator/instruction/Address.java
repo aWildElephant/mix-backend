@@ -1,12 +1,7 @@
 package fr.awildelephant.mix.emulator.instruction;
 
-import lombok.Value;
+import fr.awildelephant.mix.emulator.word.TwoBytesSigned;
 
-// TODO: use TwoBytesSigned
-@Value
-public class Address {
+public record Address(TwoBytesSigned value) {
 
-    byte sign;
-    byte b1;
-    byte b2;
 }
