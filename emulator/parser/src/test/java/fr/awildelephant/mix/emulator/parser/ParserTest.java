@@ -3,6 +3,7 @@ package fr.awildelephant.mix.emulator.parser;
 import fr.awildelephant.mix.emulator.instruction.AddressService;
 import fr.awildelephant.mix.emulator.instruction.Instruction;
 import fr.awildelephant.mix.emulator.instruction.Operation;
+import fr.awildelephant.mix.emulator.word.TwoBytesSignedService;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -14,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ParserTest {
 
-    private final AddressService addressService = new AddressService();
+    private final AddressService addressService = new AddressService(new TwoBytesSignedService());
 
     @Test
     void it_should_parse_all_examples_from_page_128() {

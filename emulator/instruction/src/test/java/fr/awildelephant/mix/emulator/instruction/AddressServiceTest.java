@@ -1,12 +1,13 @@
 package fr.awildelephant.mix.emulator.instruction;
 
+import fr.awildelephant.mix.emulator.word.TwoBytesSignedService;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class AddressServiceTest {
 
-    private final AddressService addressService = new AddressService();
+    private final AddressService addressService = new AddressService(new TwoBytesSignedService());
 
     @Test
     void it_should_transform_0() {

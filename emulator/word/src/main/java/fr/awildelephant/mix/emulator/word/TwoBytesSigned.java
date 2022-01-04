@@ -1,5 +1,6 @@
 package fr.awildelephant.mix.emulator.word;
 
+// FIXME: using a byte for sign is pointless and makes code harder to understand
 public record TwoBytesSigned(byte sign, byte b1, byte b2) {
 
     private static final TwoBytesSigned EMPTY = new TwoBytesSigned(ByteHelper.b0, ByteHelper.b0, ByteHelper.b0);
