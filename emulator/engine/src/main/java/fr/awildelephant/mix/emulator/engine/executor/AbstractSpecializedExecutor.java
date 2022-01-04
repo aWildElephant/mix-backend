@@ -22,6 +22,11 @@ public abstract class AbstractSpecializedExecutor implements Executor {
         return switch (index) {
             case ByteHelper.b0 -> instruction.getAddress();
             case ByteHelper.b1 -> addRegisterContent(instruction.getAddress(), machine.getRI1());
+            case ByteHelper.b2 -> addRegisterContent(instruction.getAddress(), machine.getRI2());
+            case ByteHelper.b3 -> addRegisterContent(instruction.getAddress(), machine.getRI3());
+            case ByteHelper.b4 -> addRegisterContent(instruction.getAddress(), machine.getRI4());
+            case ByteHelper.b5 -> addRegisterContent(instruction.getAddress(), machine.getRI5());
+            case ByteHelper.b6 -> addRegisterContent(instruction.getAddress(), machine.getRI6());
             default -> throw new UnsupportedOperationException("Invalid index specification value " + index);
         };
     }
