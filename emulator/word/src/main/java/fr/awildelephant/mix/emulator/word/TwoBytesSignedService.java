@@ -3,7 +3,7 @@ package fr.awildelephant.mix.emulator.word;
 public final class TwoBytesSignedService {
 
     public TwoBytesSigned fromInt(int value) {
-        final byte sign = value >= 0 ? ByteHelper.b0 : ByteHelper.b1;
+        final boolean sign = value < 0;
         final int valueAbs = Math.abs(value);
         final byte secondByte = extractByte(valueAbs);
         final byte firstByte = extractByte(valueAbs >>> 8);
@@ -20,7 +20,7 @@ public final class TwoBytesSignedService {
         result *= 256;
         result += value.b2() + 128;
 
-        if (value.sign() % 2 == 1) {
+        if (value.sign()) {
             result = -result;
         }
 
