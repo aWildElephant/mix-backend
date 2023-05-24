@@ -17,14 +17,14 @@ public final class InstructionDispatcher implements Executor {
 
     @Override
     public StateModification apply(Machine machine, Instruction instruction) {
-        final Executor specializedExecutor = switch (instruction.getOperation()) {
+        final Executor specializedExecutor = switch (instruction.operation()) {
             case LDA -> ldaExecutor;
             case LD1 -> ld1Executor;
             case LDX -> ldxExecutor;
             case NOP -> nopExecutor;
             case STA -> staExecutor;
             case STX -> stxExecutor;
-            default -> throw new UnsupportedOperationException("Not yet implemented: " + instruction.getOperation());
+            default -> throw new UnsupportedOperationException("Not yet implemented: " + instruction.operation());
         };
 
         return specializedExecutor.apply(machine, instruction);

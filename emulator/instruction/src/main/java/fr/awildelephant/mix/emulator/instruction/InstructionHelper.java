@@ -10,24 +10,17 @@ public final class InstructionHelper {
     }
 
     public static Instruction toInstruction(Word word) {
-        return Instruction.builder()
-                .operation(Operation.fromOperationCodeAndModification(word.b5(), word.b4()))
-                .modification(word.b4())
-                .indexSpecification(word.b3())
-                .address(new Address(new TwoBytesSigned(word.sign(), word.b1(), word.b2())))
-                .build();
+        final Operation operation = Operation.fromOperationCodeAndModification(word.b5(), word.b4());
+        final Modification modification = new Modification(word.b4());
+        final byte indexSpecification = word.b3();
+        final Address address = new Address(new TwoBytesSigned(word.sign(), word.b1(), word.b2()));
+
+        return new Instruction(operation, modification, indexSpecification, address);
     }
 
     public static Word toWord(Instruction instruction) {
-        final TwoBytesSigned addressValue = instruction.getAddress().value();
+        final TwoBytesSigned addressValue = instruction.address().value();
 
-        return new Word(
-                addressValue.sign(),
-                addressValue.b1(),
-                addressValue.b2(),
-                instruction.getIndexSpecification(),
-                instruction.getModification(),
-                instruction.getOperation().getCode()
-        );
+        return new Word(addressValue.sign(), addressValue.b1(), addressValue.b2(), instruction.indexSpecification(), instruction.modification().value(), instruction.operation().getCode());
     }
 }

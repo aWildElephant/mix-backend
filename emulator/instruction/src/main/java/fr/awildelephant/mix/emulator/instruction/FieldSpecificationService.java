@@ -4,13 +4,13 @@ import fr.awildelephant.mix.emulator.word.Word;
 
 public final class FieldSpecificationService {
 
-    public Word applySpecification(byte value, Word newContent) {
+    public Word applySpecification(FieldSpecification value, Word newContent) {
         return applySpecification(value, newContent, Word.emptyWord());
     }
 
-    public Word applySpecification(byte value, Word newContent, Word originalContent) {
-        final int l = value >>> 3;
-        final int r = value % 8;
+    public Word applySpecification(FieldSpecification value, Word newContent, Word originalContent) {
+        final int l = value.left();
+        final int r = value.right();
 
         final boolean sign;
         if (l == 0) {

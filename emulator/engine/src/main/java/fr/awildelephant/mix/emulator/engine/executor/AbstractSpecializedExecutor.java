@@ -17,17 +17,17 @@ public abstract class AbstractSpecializedExecutor implements Executor {
     private final FieldSpecificationService fieldSpecificationService;
 
     protected Address indexingProcess(Machine machine, Instruction instruction) {
-        final byte index = instruction.getIndexSpecification();
+        final byte index = instruction.indexSpecification();
 
         return switch (index) {
-            case ByteHelper.b0 -> instruction.getAddress();
-            case ByteHelper.b1 -> addRegisterContent(instruction.getAddress(), machine.getRegisterI1());
-            case ByteHelper.b2 -> addRegisterContent(instruction.getAddress(), machine.getRegisterI2());
-            case ByteHelper.b3 -> addRegisterContent(instruction.getAddress(), machine.getRegisterI3());
-            case ByteHelper.b4 -> addRegisterContent(instruction.getAddress(), machine.getRegisterI4());
-            case ByteHelper.b5 -> addRegisterContent(instruction.getAddress(), machine.getRegisterI5());
-            case ByteHelper.b6 -> addRegisterContent(instruction.getAddress(), machine.getRegisterI6());
-            default -> throw new UnsupportedOperationException("Invalid index specification value " + index);
+            case ByteHelper.b0 -> instruction.address();
+            case ByteHelper.b1 -> addRegisterContent(instruction.address(), machine.getRegisterI1());
+            case ByteHelper.b2 -> addRegisterContent(instruction.address(), machine.getRegisterI2());
+            case ByteHelper.b3 -> addRegisterContent(instruction.address(), machine.getRegisterI3());
+            case ByteHelper.b4 -> addRegisterContent(instruction.address(), machine.getRegisterI4());
+            case ByteHelper.b5 -> addRegisterContent(instruction.address(), machine.getRegisterI5());
+            case ByteHelper.b6 -> addRegisterContent(instruction.address(), machine.getRegisterI6());
+            default -> throw new UnsupportedOperationException("Invalid index specification field " + index);
         };
     }
 
@@ -36,10 +36,10 @@ public abstract class AbstractSpecializedExecutor implements Executor {
     }
 
     protected Word applyFieldSpecification(Word value, Instruction instruction) {
-        return fieldSpecificationService.applySpecification(instruction.getModification(), value);
+        return fieldSpecificationService.applySpecification(instruction.modification().toFieldSpecification(), value);
     }
 
     protected Word applyFieldSpecification(Word newValue, Word originalValue, Instruction instruction) {
-        return fieldSpecificationService.applySpecification(instruction.getModification(), newValue, originalValue);
+        return fieldSpecificationService.applySpecification(instruction.modification().toFieldSpecification(), newValue, originalValue);
     }
 }
