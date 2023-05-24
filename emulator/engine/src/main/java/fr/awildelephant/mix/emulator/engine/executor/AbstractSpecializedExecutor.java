@@ -1,7 +1,7 @@
 package fr.awildelephant.mix.emulator.engine.executor;
 
 import fr.awildelephant.mix.emulator.engine.state.Machine;
-import fr.awildelephant.mix.emulator.engine.state.TwoBytesSignedRegister;
+import fr.awildelephant.mix.emulator.engine.state.SignedTwoBytesRegister;
 import fr.awildelephant.mix.emulator.instruction.Address;
 import fr.awildelephant.mix.emulator.instruction.FieldSpecificationService;
 import fr.awildelephant.mix.emulator.instruction.Instruction;
@@ -21,17 +21,17 @@ public abstract class AbstractSpecializedExecutor implements Executor {
 
         return switch (index) {
             case ByteHelper.b0 -> instruction.getAddress();
-            case ByteHelper.b1 -> addRegisterContent(instruction.getAddress(), machine.getRI1());
-            case ByteHelper.b2 -> addRegisterContent(instruction.getAddress(), machine.getRI2());
-            case ByteHelper.b3 -> addRegisterContent(instruction.getAddress(), machine.getRI3());
-            case ByteHelper.b4 -> addRegisterContent(instruction.getAddress(), machine.getRI4());
-            case ByteHelper.b5 -> addRegisterContent(instruction.getAddress(), machine.getRI5());
-            case ByteHelper.b6 -> addRegisterContent(instruction.getAddress(), machine.getRI6());
+            case ByteHelper.b1 -> addRegisterContent(instruction.getAddress(), machine.getRegisterI1());
+            case ByteHelper.b2 -> addRegisterContent(instruction.getAddress(), machine.getRegisterI2());
+            case ByteHelper.b3 -> addRegisterContent(instruction.getAddress(), machine.getRegisterI3());
+            case ByteHelper.b4 -> addRegisterContent(instruction.getAddress(), machine.getRegisterI4());
+            case ByteHelper.b5 -> addRegisterContent(instruction.getAddress(), machine.getRegisterI5());
+            case ByteHelper.b6 -> addRegisterContent(instruction.getAddress(), machine.getRegisterI6());
             default -> throw new UnsupportedOperationException("Invalid index specification value " + index);
         };
     }
 
-    private Address addRegisterContent(Address address, TwoBytesSignedRegister indexRegister) {
+    private Address addRegisterContent(Address address, SignedTwoBytesRegister indexRegister) {
         return new Address(mathService.add(address.value(), indexRegister.getContent()));
     }
 

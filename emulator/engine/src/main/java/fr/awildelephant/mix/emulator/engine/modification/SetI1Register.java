@@ -11,6 +11,6 @@ public class SetI1Register implements StateModification {
 
     @Override
     public void accept(Machine machine) {
-        machine.getRI1().setContent(newValue);
+        machine.getRegisterI1().setContent(newValue);
     }
 }

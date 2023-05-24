@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TwoBytesSignedRegister {
+public class SignedTwoBytesRegister {
 
     private TwoBytesSigned content = TwoBytesSigned.empty();
 }
