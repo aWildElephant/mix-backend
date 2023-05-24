@@ -20,7 +20,7 @@ public final class LDAExecutor extends AbstractSpecializedExecutor {
         final Address address = indexingProcess(machine, instruction);
         final Word memoryValue = machine.memory().get(address);
 
-        final Word newValue = applyFieldSpecification(memoryValue, instruction);
+        final Word newValue = fieldSpecificationService.load(fieldSpecification(instruction), memoryValue);
 
         return new SetARegister(newValue);
     }

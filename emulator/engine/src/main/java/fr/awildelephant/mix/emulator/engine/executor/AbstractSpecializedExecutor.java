@@ -3,6 +3,7 @@ package fr.awildelephant.mix.emulator.engine.executor;
 import fr.awildelephant.mix.emulator.engine.state.Machine;
 import fr.awildelephant.mix.emulator.engine.state.SignedTwoBytesRegister;
 import fr.awildelephant.mix.emulator.instruction.Address;
+import fr.awildelephant.mix.emulator.instruction.FieldSpecification;
 import fr.awildelephant.mix.emulator.instruction.FieldSpecificationService;
 import fr.awildelephant.mix.emulator.instruction.Instruction;
 import fr.awildelephant.mix.emulator.word.ByteHelper;
@@ -12,7 +13,7 @@ import fr.awildelephant.mix.emulator.word.Word;
 public abstract class AbstractSpecializedExecutor implements Executor {
 
     private final TwoBytesSignedMathService mathService;
-    private final FieldSpecificationService fieldSpecificationService;
+    protected final FieldSpecificationService fieldSpecificationService;
 
     protected AbstractSpecializedExecutor(TwoBytesSignedMathService mathService, FieldSpecificationService fieldSpecificationService) {
         this.mathService = mathService;
@@ -38,11 +39,11 @@ public abstract class AbstractSpecializedExecutor implements Executor {
         return new Address(mathService.add(address.value(), indexRegister.content()));
     }
 
-    protected Word applyFieldSpecification(Word value, Instruction instruction) {
-        return fieldSpecificationService.applySpecification(instruction.modification().toFieldSpecification(), value);
-    }
-
     protected Word applyFieldSpecification(Word newValue, Word originalValue, Instruction instruction) {
         return fieldSpecificationService.applySpecification(instruction.modification().toFieldSpecification(), newValue, originalValue);
+    }
+
+    protected FieldSpecification fieldSpecification(Instruction instruction) {
+        return instruction.modification().toFieldSpecification();
     }
 }

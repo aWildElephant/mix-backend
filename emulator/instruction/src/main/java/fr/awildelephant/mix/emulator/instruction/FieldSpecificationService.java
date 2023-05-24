@@ -4,8 +4,67 @@ import fr.awildelephant.mix.emulator.word.Word;
 
 public final class FieldSpecificationService {
 
-    public Word applySpecification(FieldSpecification value, Word newContent) {
-        return applySpecification(value, newContent, Word.emptyWord());
+    public Word load(FieldSpecification specification, Word source) {
+        final int left = specification.left();
+        final int right = specification.right();
+        final boolean sign = left > 0 || source.sign();
+
+        byte b1 = source.b1();
+        byte b2 = source.b2();
+        byte b3 = source.b3();
+        byte b4 = source.b4();
+        byte b5 = source.b5();
+
+        switch (left) {
+            case 5:
+                b4 = 0;
+            case 4:
+                b3 = 0;
+            case 3:
+                b2 = 0;
+            case 2:
+                b1 = 0;
+        }
+
+        switch (right) {
+            case 4 -> {
+                b5 = b4;
+                b4 = b3;
+                b3 = b2;
+                b2 = b1;
+                b1 = 0;
+            }
+            case 3 -> {
+                b5 = b3;
+                b4 = b2;
+                b3 = b1;
+                b2 = 0;
+                b1 = 0;
+            }
+            case 2 -> {
+                b5 = b2;
+                b4 = b1;
+                b3 = 0;
+                b2 = 0;
+                b1 = 0;
+            }
+            case 1 -> {
+                b5 = b1;
+                b4 = 0;
+                b3 = 0;
+                b2 = 0;
+                b1 = 0;
+            }
+            case 0 -> {
+                b5 = 0;
+                b4 = 0;
+                b3 = 0;
+                b2 = 0;
+                b1 = 0;
+            }
+        }
+
+        return new Word(sign, b1, b2, b3, b4, b5);
     }
 
     public Word applySpecification(FieldSpecification value, Word newContent, Word originalContent) {
