@@ -18,7 +18,7 @@ public final class LDAExecutor extends AbstractSpecializedExecutor {
     @Override
     public StateModification apply(Machine machine, Instruction instruction) {
         final Address address = indexingProcess(machine, instruction);
-        final Word memoryValue = machine.getMemory().get(address);
+        final Word memoryValue = machine.memory().get(address);
 
         final Word newValue = applyFieldSpecification(memoryValue, instruction);
 

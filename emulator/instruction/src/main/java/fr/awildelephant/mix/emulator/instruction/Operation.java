@@ -1,10 +1,7 @@
 package fr.awildelephant.mix.emulator.instruction;
 
-import lombok.Getter;
-
 import static fr.awildelephant.mix.emulator.word.ByteHelper.*;
 
-@Getter
 public enum Operation {
 
     NOP(b0),
@@ -171,8 +168,8 @@ public enum Operation {
 
     public static Operation fromOperationCodeAndModification(byte operationCode, byte modification) {
         for (Operation value : values()) {
-            if (value.getCode() == operationCode) {
-                final byte expectedModification = value.getModification();
+            if (value.code() == operationCode) {
+                final byte expectedModification = value.modification();
                 if (expectedModification == -1 || expectedModification == modification) {
                     return value;
                 }
@@ -180,5 +177,13 @@ public enum Operation {
         }
 
         throw new IllegalArgumentException();
+    }
+
+    public byte code() {
+        return code;
+    }
+
+    public byte modification() {
+        return modification;
     }
 }

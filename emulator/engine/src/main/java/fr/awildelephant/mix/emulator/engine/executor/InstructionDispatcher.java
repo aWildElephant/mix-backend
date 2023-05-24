@@ -3,9 +3,7 @@ package fr.awildelephant.mix.emulator.engine.executor;
 import fr.awildelephant.mix.emulator.engine.modification.StateModification;
 import fr.awildelephant.mix.emulator.engine.state.Machine;
 import fr.awildelephant.mix.emulator.instruction.Instruction;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public final class InstructionDispatcher implements Executor {
 
     private final LD1Executor ld1Executor;
@@ -14,6 +12,15 @@ public final class InstructionDispatcher implements Executor {
     private final NOPExecutor nopExecutor;
     private final STAExecutor staExecutor;
     private final STXExecutor stxExecutor;
+
+    public InstructionDispatcher(LD1Executor ld1Executor, LDAExecutor ldaExecutor, LDXExecutor ldxExecutor, NOPExecutor nopExecutor, STAExecutor staExecutor, STXExecutor stxExecutor) {
+        this.ld1Executor = ld1Executor;
+        this.ldaExecutor = ldaExecutor;
+        this.ldxExecutor = ldxExecutor;
+        this.nopExecutor = nopExecutor;
+        this.staExecutor = staExecutor;
+        this.stxExecutor = stxExecutor;
+    }
 
     @Override
     public StateModification apply(Machine machine, Instruction instruction) {

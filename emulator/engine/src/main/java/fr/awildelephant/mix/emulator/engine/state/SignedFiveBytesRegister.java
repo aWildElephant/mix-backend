@@ -1,12 +1,16 @@
 package fr.awildelephant.mix.emulator.engine.state;
 
 import fr.awildelephant.mix.emulator.word.Word;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
-public class SignedFiveBytesRegister {
+public final class SignedFiveBytesRegister {
 
-    private Word word = Word.emptyWord();
+    private Word content = Word.emptyWord();
+
+    public Word content() {
+        return content;
+    }
+
+    public void content(Word word) {
+        this.content = word;
+    }
 }

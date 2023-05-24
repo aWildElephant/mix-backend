@@ -1,20 +1,16 @@
 package fr.awildelephant.mix.emulator.parser.lexer.token;
 
 import fr.awildelephant.mix.emulator.parser.lexer.TokenType;
-import lombok.Value;
 
-@Value
-public class IntegerToken implements Token {
-
-    int value;
+public record IntegerToken(int value) implements Token {
 
     @Override
-    public TokenType getType() {
+    public TokenType type() {
         return TokenType.VALUE;
     }
 
     @Override
-    public String getText() {
+    public String text() {
         return Integer.toString(value);
     }
 }

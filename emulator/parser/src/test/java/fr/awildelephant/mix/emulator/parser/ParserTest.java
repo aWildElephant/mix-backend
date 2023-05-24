@@ -39,7 +39,7 @@ class ParserTest {
 
     private void assertParsing(String source, List<Instruction> expected) {
         final ByteArrayInputStream inputStream = new ByteArrayInputStream(source.getBytes(StandardCharsets.UTF_8));
-        final List<Instruction> actual = new Parser(addressService).parse(inputStream).getInstructions();
+        final List<Instruction> actual = new Parser(addressService).parse(inputStream).instructions();
         assertThat(actual).isEqualTo(expected);
     }
 
@@ -54,7 +54,7 @@ class ParserTest {
 
     private Operation getOperation(int operationCode) {
         return Stream.of(Operation.values())
-                .filter(operation -> operation.getCode() == operationCode)
+                .filter(operation -> operation.code() == operationCode)
                 .findAny()
                 .orElseThrow(IllegalArgumentException::new);
     }

@@ -4,15 +4,16 @@ import fr.awildelephant.mix.emulator.instruction.AddressService;
 import fr.awildelephant.mix.emulator.instruction.Instruction;
 import fr.awildelephant.mix.emulator.instruction.InstructionSequence;
 import fr.awildelephant.mix.emulator.instruction.Operation;
+import fr.awildelephant.mix.emulator.parser.error.ParseError;
 import fr.awildelephant.mix.emulator.parser.input.InputWithLookup;
 import fr.awildelephant.mix.emulator.parser.lexer.Lexer;
 import fr.awildelephant.mix.emulator.parser.lexer.TokenType;
-import fr.awildelephant.mix.emulator.parser.lexer.token.*;
-import fr.awildelephant.mix.emulator.instruction.*;
-import fr.awildelephant.mix.emulator.parser.error.ParseError;
-import fr.awildelephant.mix.emulator.parser.lexer.token.*;
+import fr.awildelephant.mix.emulator.parser.lexer.token.EndOfFileToken;
+import fr.awildelephant.mix.emulator.parser.lexer.token.IntegerToken;
+import fr.awildelephant.mix.emulator.parser.lexer.token.OperationToken;
+import fr.awildelephant.mix.emulator.parser.lexer.token.SpecialToken;
+import fr.awildelephant.mix.emulator.parser.lexer.token.Token;
 import fr.awildelephant.mix.emulator.word.ByteHelper;
-import lombok.RequiredArgsConstructor;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -21,10 +22,13 @@ import java.util.List;
 import static fr.awildelephant.mix.emulator.instruction.Operation.*;
 
 // TODO: explanation on what went wrong for parsing errors
-@RequiredArgsConstructor
 public final class Parser {
 
     private final AddressService addressService;
+
+    public Parser(AddressService addressService) {
+        this.addressService = addressService;
+    }
 
     public InstructionSequence parse(InputStream inputStream) {
         final Lexer lexer = new Lexer(new InputWithLookup(inputStream));
@@ -45,7 +49,7 @@ public final class Parser {
         final Token t1 = lexer.lookup();
 
         if (t1 instanceof OperationToken) {
-            final Operation operation = transformOperation(t1.getType());
+            final Operation operation = transformOperation(t1.type());
 
             lexer.consume();
 
@@ -54,8 +58,8 @@ public final class Parser {
 
             deriveSpecification(lexer, instructionBuilder);
 
-            if (operation.getModification() >= 0) {
-                instructionBuilder.modification(operation.getModification());
+            if (operation.modification() >= 0) {
+                instructionBuilder.modification(operation.modification());
             }
 
             return instructionBuilder.build();
@@ -223,17 +227,17 @@ public final class Parser {
         final Token t0 = lexer.lookup();
 
         if (t0 instanceof IntegerToken addressToken) {
-            instructionBuilder.address(addressService.toAddress(addressToken.getValue()));
+            instructionBuilder.address(addressService.toAddress(addressToken.value()));
             lexer.consume();
 
             if (lexer.lookup() == SpecialToken.COMMA) {
                 lexer.consume();
 
-                if (lexer.lookup().getType() == TokenType.VALUE) {
+                if (lexer.lookup().type() == TokenType.VALUE) {
                     instructionBuilder.indexSpecification((byte) consumeAndExpectInteger(lexer));
                 }
 
-                if (lexer.lookup().getType() == TokenType.LEFT_PARENTHESIS) {
+                if (lexer.lookup().type() == TokenType.LEFT_PARENTHESIS) {
                     instructionBuilder.modification(deriveModification(lexer));
                 } else {
                     instructionBuilder.modification(ByteHelper.b5);
@@ -256,7 +260,7 @@ public final class Parser {
     }
 
     private void consumeAndExpect(Lexer lexer, TokenType expectedType) {
-        if (lexer.lookup().getType() == expectedType) {
+        if (lexer.lookup().type() == expectedType) {
             lexer.consume();
         } else {
             throw new ParseError();
@@ -266,7 +270,7 @@ public final class Parser {
     private int consumeAndExpectInteger(Lexer lexer) {
         if (lexer.lookup() instanceof IntegerToken integerToken) {
             lexer.consume();
-            return integerToken.getValue();
+            return integerToken.value();
         } else {
             throw new ParseError();
         }

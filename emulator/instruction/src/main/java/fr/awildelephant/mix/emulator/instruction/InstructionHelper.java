@@ -21,6 +21,6 @@ public final class InstructionHelper {
     public static Word toWord(Instruction instruction) {
         final TwoBytesSigned addressValue = instruction.address().value();
 
-        return new Word(addressValue.sign(), addressValue.b1(), addressValue.b2(), instruction.indexSpecification(), instruction.modification().value(), instruction.operation().getCode());
+        return new Word(addressValue.sign(), addressValue.b1(), addressValue.b2(), instruction.indexSpecification(), instruction.modification().value(), instruction.operation().code());
     }
 }

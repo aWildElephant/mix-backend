@@ -1,9 +1,10 @@
 package fr.awildelephant.mix.emulator.parser.error;
 
-import lombok.Value;
+public final class UnknownTokenException extends ParseError {
 
-@Value
-public class UnknownTokenException extends ParseError {
+    private final String token;
 
-    String token;
+    public UnknownTokenException(String token) {
+        this.token = token;
+    }
 }

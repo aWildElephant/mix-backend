@@ -11,12 +11,12 @@ public final class EndOfFileToken implements Token {
     }
 
     @Override
-    public TokenType getType() {
+    public TokenType type() {
         return TokenType.END_OF_FILE;
     }
 
     @Override
-    public String getText() {
+    public String text() {
         return "\nEOF";
     }
 }

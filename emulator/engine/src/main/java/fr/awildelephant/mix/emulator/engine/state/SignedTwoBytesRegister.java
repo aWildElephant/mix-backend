@@ -1,12 +1,16 @@
 package fr.awildelephant.mix.emulator.engine.state;
 
 import fr.awildelephant.mix.emulator.word.TwoBytesSigned;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
-public class SignedTwoBytesRegister {
+public final class SignedTwoBytesRegister {
 
     private TwoBytesSigned content = TwoBytesSigned.empty();
+
+    public TwoBytesSigned content() {
+        return content;
+    }
+
+    public void content(TwoBytesSigned content) {
+        this.content = content;
+    }
 }

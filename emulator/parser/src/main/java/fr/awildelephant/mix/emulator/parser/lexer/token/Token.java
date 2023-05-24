@@ -4,7 +4,7 @@ import fr.awildelephant.mix.emulator.parser.lexer.TokenType;
 
 public interface Token {
 
-    TokenType getType();
+    TokenType type();
 
-    String getText();
+    String text();
 }

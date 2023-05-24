@@ -18,8 +18,8 @@ public final class STXExecutor extends AbstractSpecializedExecutor {
     @Override
     public StateModification apply(Machine machine, Instruction instruction) {
         final Address memoryAddress = indexingProcess(machine, instruction);
-        final Word memoryValue = machine.getMemory().get(memoryAddress);
-        final Word registerValue = machine.getRegisterX().getWord();
+        final Word memoryValue = machine.memory().get(memoryAddress);
+        final Word registerValue = machine.registerX().content();
 
         final Word newValue = applyFieldSpecification(registerValue, memoryValue, instruction);
 

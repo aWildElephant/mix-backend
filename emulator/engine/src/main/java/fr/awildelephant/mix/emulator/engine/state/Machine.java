@@ -1,9 +1,7 @@
 package fr.awildelephant.mix.emulator.engine.state;
 
 import fr.awildelephant.mix.emulator.instruction.AddressService;
-import lombok.Getter;
 
-@Getter
 public final class Machine {
 
     private final SignedFiveBytesRegister registerA = new SignedFiveBytesRegister();
@@ -20,5 +18,49 @@ public final class Machine {
 
     public Machine(AddressService addressService) {
         memory = new Memory(addressService);
+    }
+
+    public SignedFiveBytesRegister registerA() {
+        return registerA;
+    }
+
+    public SignedFiveBytesRegister registerX() {
+        return registerX;
+    }
+
+    public SignedTwoBytesRegister registerI1() {
+        return registerI1;
+    }
+
+    public SignedTwoBytesRegister registerI2() {
+        return registerI2;
+    }
+
+    public SignedTwoBytesRegister registerI3() {
+        return registerI3;
+    }
+
+    public SignedTwoBytesRegister registerI4() {
+        return registerI4;
+    }
+
+    public SignedTwoBytesRegister registerI5() {
+        return registerI5;
+    }
+
+    public SignedTwoBytesRegister registerI6() {
+        return registerI6;
+    }
+
+    public OverflowToggle overflowToggle() {
+        return overflowToggle;
+    }
+
+    public ComparisonIndicator comparisonIndicator() {
+        return comparisonIndicator;
+    }
+
+    public Memory memory() {
+        return memory;
     }
 }

@@ -7,13 +7,15 @@ import fr.awildelephant.mix.emulator.instruction.Address;
 import fr.awildelephant.mix.emulator.instruction.Instruction;
 import fr.awildelephant.mix.emulator.instruction.InstructionHelper;
 import fr.awildelephant.mix.emulator.word.Word;
-import lombok.Value;
 
 // TODO: bootstraping the program by writing instructions to memory
-@Value
-public class Program {
+public final class Program {
 
-    InstructionDispatcher instructionDispatcher;
+    private final InstructionDispatcher instructionDispatcher;
+
+    public Program(InstructionDispatcher instructionDispatcher) {
+        this.instructionDispatcher = instructionDispatcher;
+    }
 
     public void run(Machine machine, Address programStart) {
         final Instruction instruction = loadInstruction(machine, programStart);
@@ -26,7 +28,7 @@ public class Program {
     }
 
     private Instruction loadInstruction(Machine machine, Address address) {
-        final Word instructionWordFormat = machine.getMemory().get(address);
+        final Word instructionWordFormat = machine.memory().get(address);
 
         return InstructionHelper.toInstruction(instructionWordFormat);
     }
