@@ -21,7 +21,7 @@ public final class STXExecutor extends AbstractSpecializedExecutor {
         final Word memoryValue = machine.memory().get(memoryAddress);
         final Word registerValue = machine.registerX().content();
 
-        final Word newValue = applyFieldSpecification(registerValue, memoryValue, instruction);
+        final Word newValue = fieldSpecificationService.store(fieldSpecification(instruction), registerValue, memoryValue);
 
         return new SetMemoryCell(memoryAddress, newValue);
     }

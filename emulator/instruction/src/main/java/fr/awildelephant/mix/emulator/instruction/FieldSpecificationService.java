@@ -67,50 +67,73 @@ public final class FieldSpecificationService {
         return new Word(sign, b1, b2, b3, b4, b5);
     }
 
-    public Word applySpecification(FieldSpecification value, Word newContent, Word originalContent) {
+    public Word store(FieldSpecification value, Word source, Word destination) {
         final int l = value.left();
         final int r = value.right();
 
         final boolean sign;
         if (l == 0) {
-            sign = newContent.sign();
+            sign = source.sign();
         } else {
-            sign = originalContent.sign();
+            sign = destination.sign();
         }
 
-        final byte b1;
-        if (l <= 1 && r >= 1) {
-            b1 = newContent.b1();
-        } else {
-            b1 = originalContent.b1();
-        }
+        byte b1 = destination.b1();
+        byte b2 = destination.b2();
+        byte b3 = destination.b3();
+        byte b4 = destination.b4();
+        byte b5 = destination.b5();
 
-        final byte b2;
-        if (l <= 2 && r >= 2) {
-            b2 = newContent.b2();
-        } else {
-            b2 = originalContent.b2();
-        }
-
-        final byte b3;
-        if (l <= 3 && r >= 3) {
-            b3 = newContent.b3();
-        } else {
-            b3 = originalContent.b3();
-        }
-
-        final byte b4;
-        if (l <= 4 && r >= 4) {
-            b4 = newContent.b4();
-        } else {
-            b4 = originalContent.b4();
-        }
-
-        final byte b5;
-        if (l <= 5 && r >= 5) {
-            b5 = newContent.b5();
-        } else {
-            b5 = originalContent.b5();
+        switch (r) {
+            case 1 -> b1 = source.b5();
+            case 2 -> {
+                switch (l) {
+                    case 0:
+                    case 1:
+                        b1 = source.b4();
+                    case 2:
+                        b2 = source.b5();
+                }
+            }
+            case 3 -> {
+                switch (l) {
+                    case 0:
+                    case 1:
+                        b1 = source.b3();
+                    case 2:
+                        b2 = source.b4();
+                    case 3:
+                        b3 = source.b5();
+                }
+            }
+            case 4 -> {
+                switch (l) {
+                    case 0:
+                    case 1:
+                        b1 = source.b2();
+                    case 2:
+                        b2 = source.b3();
+                    case 3:
+                        b3 = source.b4();
+                    case 4:
+                        b4 = source.b5();
+                }
+            }
+            case 5 -> {
+                switch (l) {
+                    case 0:
+                    case 1:
+                        b1 = source.b1();
+                    case 2:
+                        b2 = source.b2();
+                    case 3:
+                        b3 = source.b3();
+                    case 4:
+                        b4 = source.b4();
+                    case 5:
+                        b5 = source.b5();
+                }
+            }
         }
 
         return new Word(sign, b1, b2, b3, b4, b5);

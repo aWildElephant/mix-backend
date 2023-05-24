@@ -30,4 +30,23 @@ class FieldSpecificationServiceTest {
                 Arguments.of(new FieldSpecification(0, 0), source, new Word(false, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0))
         );
     }
+
+    @ParameterizedTest
+    @MethodSource("storeScenarios")
+    void store(FieldSpecification specification, Word source, Word destination, Word expected) {
+        assertThat(fieldSpecificationService.store(specification, source, destination)).isEqualTo(expected);
+    }
+
+    private static Stream<Arguments> storeScenarios() {
+        final Word source = new Word(true, (byte) 6, (byte) 7, (byte) 8, (byte) 9, (byte) 0);
+        final Word destination = new Word(false, (byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 5);
+        return Stream.of(
+                Arguments.of(new FieldSpecification(0, 5), source, destination, source),
+                Arguments.of(new FieldSpecification(1, 5), source, destination, new Word(false, (byte) 6, (byte) 7, (byte) 8, (byte) 9, (byte) 0)),
+                Arguments.of(new FieldSpecification(5, 5), source, destination, new Word(false, (byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 0)),
+                Arguments.of(new FieldSpecification(2, 2), source, destination, new Word(false, (byte) 1, (byte) 0, (byte) 3, (byte) 4, (byte) 5)),
+                Arguments.of(new FieldSpecification(2, 3), source, destination, new Word(false, (byte) 1, (byte) 9, (byte) 0, (byte) 4, (byte) 5)),
+                Arguments.of(new FieldSpecification(0, 1), source, destination, new Word(true, (byte) 0, (byte) 2, (byte) 3, (byte) 4, (byte) 5))
+        );
+    }
 }

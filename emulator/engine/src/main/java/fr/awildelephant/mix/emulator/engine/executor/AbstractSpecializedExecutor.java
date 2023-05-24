@@ -8,7 +8,6 @@ import fr.awildelephant.mix.emulator.instruction.FieldSpecificationService;
 import fr.awildelephant.mix.emulator.instruction.Instruction;
 import fr.awildelephant.mix.emulator.word.ByteHelper;
 import fr.awildelephant.mix.emulator.word.TwoBytesSignedMathService;
-import fr.awildelephant.mix.emulator.word.Word;
 
 public abstract class AbstractSpecializedExecutor implements Executor {
 
@@ -37,10 +36,6 @@ public abstract class AbstractSpecializedExecutor implements Executor {
 
     private Address addRegisterContent(Address address, SignedTwoBytesRegister indexRegister) {
         return new Address(mathService.add(address.value(), indexRegister.content()));
-    }
-
-    protected Word applyFieldSpecification(Word newValue, Word originalValue, Instruction instruction) {
-        return fieldSpecificationService.applySpecification(instruction.modification().toFieldSpecification(), newValue, originalValue);
     }
 
     protected FieldSpecification fieldSpecification(Instruction instruction) {
