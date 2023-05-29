@@ -1,41 +1,32 @@
 package fr.awildelephant.mix.emulator.word;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class TwoBytesSignedTest {
 
-    // TODO: parameterized tests for add
-    @Test
-    void add_two_plus_two_is_four() {
-        assertAdd(2, 2, 4);
-    }
-
-    @Test
-    void add_one_plus_one_is_two() {
-        assertAdd(1, 1, 2);
-    }
-
-    @Test
-    void add_one_plus_minus_one_is_zero() {
-        assertAdd(1, -1, 0);
-    }
-
-    @Test
-    void add_one_plus_257_is_258() {
-        assertAdd(1, 257, 258);
-    }
-
-    @Test
-    void add_ten_plus_minus_eleven_is_minus_one() {
-        assertAdd(10, -11, -1);
-    }
-
-    private void assertAdd(int left, int right, int expected) {
+    @ParameterizedTest
+    @MethodSource("addScenarios")
+    void add(int left, int right, int expected) {
         TwoBytesSigned a = TwoBytesSigned.fromInt(left);
         TwoBytesSigned b = TwoBytesSigned.fromInt(right);
         assertThat(a.add(b)).isEqualTo(TwoBytesSigned.fromInt(expected));
+    }
+
+    private static Stream<Arguments> addScenarios() {
+        return Stream.of(
+                Arguments.of(1, 1, 2),
+                Arguments.of(1, -1, 0),
+                Arguments.of(2, 2, 4),
+                Arguments.of(63, 2, 65),
+                Arguments.of(10, -11, -1)
+        );
     }
 
     @Test
