@@ -1,18 +1,13 @@
 package fr.awildelephant.mix.emulator.word;
 
-import java.util.BitSet;
-
-// TODO: common abstract class for TwoBytesSigned and Word
-public final class Word {
-
-    private final BitSet bitset;
+public final class Word extends AbstractBytesHolder {
 
     public Word() {
-        bitset = new BitSet(31);
+        super(31);
     }
 
     public Word(Word source) {
-        bitset = (BitSet) source.bitset.clone();
+        super(source);
     }
 
     public static Word from(boolean sign, int b1, int b2, int b3, int b4, int b5) {
@@ -26,18 +21,6 @@ public final class Word {
         return result;
     }
 
-    public static Word emptyWord() {
-        return new Word();
-    }
-
-    public boolean sign() {
-        return !bitset.get(30);
-    }
-
-    public void sign(boolean value) {
-        bitset.set(30, !value);
-    }
-
     public int b1() {
         return getByte(0);
     }
@@ -47,51 +30,35 @@ public final class Word {
     }
 
     public int b2() {
-        return getByte(6);
+        return getByte(1);
     }
 
     public void b2(int value) {
-        setByte(6, value);
+        setByte(1, value);
     }
 
     public int b3() {
-        return getByte(12);
+        return getByte(2);
     }
 
     public void b3(int value) {
-        setByte(12, value);
+        setByte(2, value);
     }
 
     public int b4() {
-        return getByte(18);
+        return getByte(3);
     }
 
     public void b4(int value) {
-        setByte(18, value);
+        setByte(3, value);
     }
 
     public int b5() {
-        return getByte(24);
+        return getByte(4);
     }
 
     public void b5(int value) {
-        setByte(24, value);
-    }
-
-    private int getByte(int startIndex) {
-        final BitSet region = bitset.get(startIndex, startIndex + 6);
-        if (region.length() == 0) {
-            return 0;
-        }
-        return region.toByteArray()[0];
-    }
-
-    private void setByte(int startIndex, int value) {
-        for (int i = startIndex; i < startIndex + 6; i++) {
-            bitset.set(i, value % 2 != 0);
-
-            value = value >>> 1;
-        }
+        setByte(4, value);
     }
 
     public Word negate() {
@@ -116,11 +83,11 @@ public final class Word {
         if (!(obj instanceof final Word other)) {
             return false;
         }
-        return bitset.equals(other.bitset);
+        return super.equals(other);
     }
 
     @Override
     public int hashCode() {
-        return bitset.hashCode();
+        return super.hashCode();
     }
 }

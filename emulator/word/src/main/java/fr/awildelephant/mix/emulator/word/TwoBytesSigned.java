@@ -1,19 +1,9 @@
 package fr.awildelephant.mix.emulator.word;
 
-import java.util.BitSet;
-
-public final class TwoBytesSigned {
-
-    private final BitSet bitset;
-
-    public static TwoBytesSigned empty() {
-        return new TwoBytesSigned();
-    }
+public final class TwoBytesSigned extends AbstractBytesHolder {
 
     public TwoBytesSigned() {
-        bitset = new BitSet(13);
-
-        bitset.clear();
+        super(13);
     }
 
     public static TwoBytesSigned from(boolean sign, int b1, int b2) {
@@ -53,44 +43,20 @@ public final class TwoBytesSigned {
         return result;
     }
 
-    public void sign(boolean value) {
-        bitset.set(12, !value);
-    }
-
-    public boolean sign() {
-        return !bitset.get(12);
-    }
-
     public void b1(int value) {
-        for (int i = 0; i < 6; i++) {
-            bitset.set(i, value % 2 != 0);
-
-            value = value >>> 1;
-        }
+        setByte(0, value);
     }
 
     public int b1() {
-        return extract(0, 6);
+        return getByte(0);
     }
 
     public void b2(int value) {
-        for (int i = 6; i < 12; i++) {
-            bitset.set(i, value % 2 != 0);
-
-            value = value >>> 1;
-        }
+        setByte(1, value);
     }
 
     public int b2() {
-        return extract(6, 12);
-    }
-
-    private int extract(int fromIncluded, int toExcluded) {
-        final BitSet region = bitset.get(fromIncluded, toExcluded);
-        if (region.length() == 0) {
-            return 0;
-        }
-        return region.toByteArray()[0];
+        return getByte(1);
     }
 
     // TODO: test overflow
@@ -110,11 +76,11 @@ public final class TwoBytesSigned {
             return false;
         }
 
-        return bitset.equals(other.bitset);
+        return super.equals(other);
     }
 
     @Override
     public int hashCode() {
-        return bitset.hashCode();
+        return super.hashCode();
     }
 }

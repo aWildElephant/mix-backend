@@ -4,7 +4,7 @@ import fr.awildelephant.mix.emulator.word.Word;
 
 public final class SignedFiveBytesRegister {
 
-    private Word content = Word.emptyWord();
+    private Word content = new Word();
 
     public Word content() {
         return content;

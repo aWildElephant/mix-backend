@@ -4,7 +4,7 @@ import fr.awildelephant.mix.emulator.word.TwoBytesSigned;
 
 public final class SignedTwoBytesRegister {
 
-    private TwoBytesSigned content = TwoBytesSigned.empty();
+    private TwoBytesSigned content = new TwoBytesSigned();
 
     public TwoBytesSigned content() {
         return content;
