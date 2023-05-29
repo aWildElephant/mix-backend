@@ -5,7 +5,6 @@ import fr.awildelephant.mix.emulator.instruction.Address;
 import fr.awildelephant.mix.emulator.instruction.FieldSpecification;
 import fr.awildelephant.mix.emulator.instruction.FieldSpecificationService;
 import fr.awildelephant.mix.emulator.word.TwoBytesSigned;
-import fr.awildelephant.mix.emulator.word.TwoBytesSignedMathService;
 import fr.awildelephant.mix.emulator.word.Word;
 import fr.awildelephant.mix.emulator.word.WordService;
 
@@ -16,8 +15,8 @@ public final class LD1Executor extends AbstractOperationExecutor {
     private final Address address;
     private final byte indexSpecification;
 
-    public LD1Executor(TwoBytesSignedMathService twoBytesSignedMathService, FieldSpecificationService fieldSpecificationService, WordService wordService, FieldSpecification fieldSpecification, Address address, byte indexSpecification) {
-        super(twoBytesSignedMathService, fieldSpecificationService);
+    public LD1Executor(FieldSpecificationService fieldSpecificationService, WordService wordService, FieldSpecification fieldSpecification, Address address, byte indexSpecification) {
+        super(fieldSpecificationService);
 
         this.wordService = wordService;
         this.fieldSpecification = fieldSpecification;

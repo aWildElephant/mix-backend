@@ -4,7 +4,6 @@ import fr.awildelephant.mix.emulator.engine.state.Machine;
 import fr.awildelephant.mix.emulator.instruction.Address;
 import fr.awildelephant.mix.emulator.instruction.FieldSpecification;
 import fr.awildelephant.mix.emulator.instruction.FieldSpecificationService;
-import fr.awildelephant.mix.emulator.word.TwoBytesSignedMathService;
 import fr.awildelephant.mix.emulator.word.Word;
 
 public final class LDAExecutor extends AbstractOperationExecutor {
@@ -13,8 +12,8 @@ public final class LDAExecutor extends AbstractOperationExecutor {
     private final FieldSpecification fieldSpecification;
     private final Address address;
 
-    public LDAExecutor(TwoBytesSignedMathService mathService, FieldSpecificationService fieldSpecificationService, Address address, byte indexSpecification, FieldSpecification fieldSpecification) {
-        super(mathService, fieldSpecificationService);
+    public LDAExecutor(FieldSpecificationService fieldSpecificationService, Address address, byte indexSpecification, FieldSpecification fieldSpecification) {
+        super(fieldSpecificationService);
         this.address = address;
         this.indexSpecification = indexSpecification;
         this.fieldSpecification = fieldSpecification;

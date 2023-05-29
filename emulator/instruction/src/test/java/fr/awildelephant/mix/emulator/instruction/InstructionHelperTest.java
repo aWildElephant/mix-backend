@@ -1,14 +1,13 @@
 package fr.awildelephant.mix.emulator.instruction;
 
 import fr.awildelephant.mix.emulator.word.ByteHelper;
-import fr.awildelephant.mix.emulator.word.TwoBytesSignedService;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class InstructionHelperTest {
 
-    private final AddressService addressService = new AddressService(new TwoBytesSignedService());
+    private final AddressService addressService = new AddressService();
 
     @Test
     void it_should_transform_an_instruction_to_its_word_form_and_back() {

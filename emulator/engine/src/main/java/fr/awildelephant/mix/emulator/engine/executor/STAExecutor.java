@@ -4,7 +4,6 @@ import fr.awildelephant.mix.emulator.engine.state.Machine;
 import fr.awildelephant.mix.emulator.instruction.Address;
 import fr.awildelephant.mix.emulator.instruction.FieldSpecification;
 import fr.awildelephant.mix.emulator.instruction.FieldSpecificationService;
-import fr.awildelephant.mix.emulator.word.TwoBytesSignedMathService;
 import fr.awildelephant.mix.emulator.word.Word;
 
 public final class STAExecutor extends AbstractOperationExecutor {
@@ -13,8 +12,8 @@ public final class STAExecutor extends AbstractOperationExecutor {
     private final Address address;
     private final byte indexSpecification;
 
-    public STAExecutor(TwoBytesSignedMathService twoBytesSignedMathService, FieldSpecificationService fieldSpecificationService, FieldSpecification fieldSpecification, Address address, byte indexSpecification) {
-        super(twoBytesSignedMathService, fieldSpecificationService);
+    public STAExecutor(FieldSpecificationService fieldSpecificationService, FieldSpecification fieldSpecification, Address address, byte indexSpecification) {
+        super(fieldSpecificationService);
         this.fieldSpecification = fieldSpecification;
         this.address = address;
         this.indexSpecification = indexSpecification;

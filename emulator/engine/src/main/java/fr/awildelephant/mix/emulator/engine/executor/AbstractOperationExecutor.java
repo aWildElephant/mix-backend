@@ -5,15 +5,12 @@ import fr.awildelephant.mix.emulator.engine.state.SignedTwoBytesRegister;
 import fr.awildelephant.mix.emulator.instruction.Address;
 import fr.awildelephant.mix.emulator.instruction.FieldSpecificationService;
 import fr.awildelephant.mix.emulator.word.ByteHelper;
-import fr.awildelephant.mix.emulator.word.TwoBytesSignedMathService;
 
 public abstract class AbstractOperationExecutor implements OperationExecutor {
 
-    private final TwoBytesSignedMathService mathService;
     protected final FieldSpecificationService fieldSpecificationService;
 
-    protected AbstractOperationExecutor(TwoBytesSignedMathService mathService, FieldSpecificationService fieldSpecificationService) {
-        this.mathService = mathService;
+    protected AbstractOperationExecutor(FieldSpecificationService fieldSpecificationService) {
         this.fieldSpecificationService = fieldSpecificationService;
     }
 
@@ -31,6 +28,6 @@ public abstract class AbstractOperationExecutor implements OperationExecutor {
     }
 
     private Address addRegisterContent(Address address, SignedTwoBytesRegister indexRegister) {
-        return new Address(mathService.add(address.value(), indexRegister.content()));
+        return new Address(address.value().add(indexRegister.content()));
     }
 }

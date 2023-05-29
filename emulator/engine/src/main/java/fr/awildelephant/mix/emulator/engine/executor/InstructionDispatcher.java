@@ -6,7 +6,6 @@ import fr.awildelephant.mix.emulator.instruction.FieldSpecification;
 import fr.awildelephant.mix.emulator.instruction.FieldSpecificationService;
 import fr.awildelephant.mix.emulator.instruction.Instruction;
 import fr.awildelephant.mix.emulator.instruction.Operation;
-import fr.awildelephant.mix.emulator.word.TwoBytesSignedMathService;
 import fr.awildelephant.mix.emulator.word.WordService;
 
 import java.util.function.BiConsumer;
@@ -14,12 +13,10 @@ import java.util.function.BiConsumer;
 public final class InstructionDispatcher implements BiConsumer<Machine, Instruction> {
 
     private final FieldSpecificationService fieldSpecificationService;
-    private final TwoBytesSignedMathService twoBytesSignedMathService;
     private final WordService wordService;
 
-    public InstructionDispatcher(FieldSpecificationService fieldSpecificationService, TwoBytesSignedMathService twoBytesSignedMathService, WordService wordService) {
+    public InstructionDispatcher(FieldSpecificationService fieldSpecificationService, WordService wordService) {
         this.fieldSpecificationService = fieldSpecificationService;
-        this.twoBytesSignedMathService = twoBytesSignedMathService;
         this.wordService = wordService;
     }
 
@@ -36,12 +33,12 @@ public final class InstructionDispatcher implements BiConsumer<Machine, Instruct
         final FieldSpecification fieldSpecification = instruction.modification().toFieldSpecification();
 
         final OperationExecutor specializedExecutor = switch (operation) {
-            case LDA -> new LDAExecutor(twoBytesSignedMathService, fieldSpecificationService, address, indexSpecification, fieldSpecification);
-            case LDAN -> new LDANExecutor(twoBytesSignedMathService, fieldSpecificationService, fieldSpecification, address, indexSpecification);
-            case LD1 -> new LD1Executor(twoBytesSignedMathService, fieldSpecificationService, wordService, fieldSpecification, address, indexSpecification);
-            case LDX -> new LDXExecutor(twoBytesSignedMathService, fieldSpecificationService, fieldSpecification, address, indexSpecification);
-            case STA -> new STAExecutor(twoBytesSignedMathService, fieldSpecificationService, fieldSpecification, address, indexSpecification);
-            case STX -> new STXExecutor(twoBytesSignedMathService, fieldSpecificationService, fieldSpecification, address, indexSpecification);
+            case LDA -> new LDAExecutor(fieldSpecificationService, address, indexSpecification, fieldSpecification);
+            case LDAN -> new LDANExecutor(fieldSpecificationService, fieldSpecification, address, indexSpecification);
+            case LD1 -> new LD1Executor(fieldSpecificationService, wordService, fieldSpecification, address, indexSpecification);
+            case LDX -> new LDXExecutor(fieldSpecificationService, fieldSpecification, address, indexSpecification);
+            case STA -> new STAExecutor(fieldSpecificationService, fieldSpecification, address, indexSpecification);
+            case STX -> new STXExecutor(fieldSpecificationService, fieldSpecification, address, indexSpecification);
             default -> throw new UnsupportedOperationException("Not yet implemented: " + operation);
         };
 
