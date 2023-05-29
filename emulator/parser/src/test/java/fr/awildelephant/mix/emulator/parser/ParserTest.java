@@ -45,7 +45,7 @@ class ParserTest {
     private Instruction numericRepresentation(int address, int indexSpecifiation, int modification, int operationCode) {
         return Instruction.builder()
                 .operation(getOperation(operationCode))
-                .modification((byte) modification)
+                .modification(modification)
                 .indexSpecification((byte) indexSpecifiation)
                 .address(addressService.toAddress(address))
                 .build();

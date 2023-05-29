@@ -17,7 +17,7 @@ public record Instruction(Operation operation, Modification modification, byte i
             return this;
         }
 
-        public InstructionBuilder modification(byte modification) {
+        public InstructionBuilder modification(int modification) {
             this.modification = new Modification(modification);
             return this;
         }
