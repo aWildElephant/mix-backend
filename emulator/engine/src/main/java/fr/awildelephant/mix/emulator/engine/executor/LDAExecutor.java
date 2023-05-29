@@ -1,27 +1,31 @@
 package fr.awildelephant.mix.emulator.engine.executor;
 
-import fr.awildelephant.mix.emulator.engine.modification.SetARegister;
-import fr.awildelephant.mix.emulator.engine.modification.StateModification;
 import fr.awildelephant.mix.emulator.engine.state.Machine;
 import fr.awildelephant.mix.emulator.instruction.Address;
+import fr.awildelephant.mix.emulator.instruction.FieldSpecification;
 import fr.awildelephant.mix.emulator.instruction.FieldSpecificationService;
-import fr.awildelephant.mix.emulator.instruction.Instruction;
 import fr.awildelephant.mix.emulator.word.TwoBytesSignedMathService;
 import fr.awildelephant.mix.emulator.word.Word;
 
-public final class LDAExecutor extends AbstractSpecializedExecutor {
+public final class LDAExecutor extends AbstractOperationExecutor {
 
-    public LDAExecutor(TwoBytesSignedMathService twoBytesSignedMathService, FieldSpecificationService fieldSpecificationService) {
-        super(twoBytesSignedMathService, fieldSpecificationService);
+    private final byte indexSpecification;
+    private final FieldSpecification fieldSpecification;
+    private final Address address;
+
+    public LDAExecutor(TwoBytesSignedMathService mathService, FieldSpecificationService fieldSpecificationService, Address address, byte indexSpecification, FieldSpecification fieldSpecification) {
+        super(mathService, fieldSpecificationService);
+        this.address = address;
+        this.indexSpecification = indexSpecification;
+        this.fieldSpecification = fieldSpecification;
     }
 
     @Override
-    public StateModification apply(Machine machine, Instruction instruction) {
-        final Address address = indexingProcess(machine, instruction);
-        final Word memoryValue = machine.memory().get(address);
+    public void accept(Machine machine) {
+        final Word memoryValue = machine.memory().get(indexingProcess(machine, address, indexSpecification));
 
-        final Word newValue = fieldSpecificationService.load(fieldSpecification(instruction), memoryValue);
+        final Word newValue = fieldSpecificationService.load(fieldSpecification, memoryValue);
 
-        return new SetARegister(newValue);
+        machine.registerA().content(newValue);
     }
 }

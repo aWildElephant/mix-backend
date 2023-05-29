@@ -1,42 +1,50 @@
 package fr.awildelephant.mix.emulator.engine.executor;
 
-import fr.awildelephant.mix.emulator.engine.modification.StateModification;
 import fr.awildelephant.mix.emulator.engine.state.Machine;
+import fr.awildelephant.mix.emulator.instruction.Address;
+import fr.awildelephant.mix.emulator.instruction.FieldSpecification;
+import fr.awildelephant.mix.emulator.instruction.FieldSpecificationService;
 import fr.awildelephant.mix.emulator.instruction.Instruction;
+import fr.awildelephant.mix.emulator.instruction.Operation;
+import fr.awildelephant.mix.emulator.word.TwoBytesSignedMathService;
+import fr.awildelephant.mix.emulator.word.WordService;
 
-public final class InstructionDispatcher implements Executor {
+import java.util.function.BiConsumer;
 
-    private final LD1Executor ld1Executor;
-    private final LDAExecutor ldaExecutor;
-    private final LDANExecutor ldanExecutor;
-    private final LDXExecutor ldxExecutor;
-    private final NOPExecutor nopExecutor;
-    private final STAExecutor staExecutor;
-    private final STXExecutor stxExecutor;
+public final class InstructionDispatcher implements BiConsumer<Machine, Instruction> {
 
-    public InstructionDispatcher(LD1Executor ld1Executor, LDANExecutor ldanExecutor, LDAExecutor ldaExecutor, LDXExecutor ldxExecutor, NOPExecutor nopExecutor, STAExecutor staExecutor, STXExecutor stxExecutor) {
-        this.ld1Executor = ld1Executor;
-        this.ldaExecutor = ldaExecutor;
-        this.ldanExecutor = ldanExecutor;
-        this.ldxExecutor = ldxExecutor;
-        this.nopExecutor = nopExecutor;
-        this.staExecutor = staExecutor;
-        this.stxExecutor = stxExecutor;
+    private final FieldSpecificationService fieldSpecificationService;
+    private final TwoBytesSignedMathService twoBytesSignedMathService;
+    private final WordService wordService;
+
+    public InstructionDispatcher(FieldSpecificationService fieldSpecificationService, TwoBytesSignedMathService twoBytesSignedMathService, WordService wordService) {
+        this.fieldSpecificationService = fieldSpecificationService;
+        this.twoBytesSignedMathService = twoBytesSignedMathService;
+        this.wordService = wordService;
     }
 
     @Override
-    public StateModification apply(Machine machine, Instruction instruction) {
-        final Executor specializedExecutor = switch (instruction.operation()) {
-            case LDA -> ldaExecutor;
-            case LDAN -> ldanExecutor;
-            case LD1 -> ld1Executor;
-            case LDX -> ldxExecutor;
-            case NOP -> nopExecutor;
-            case STA -> staExecutor;
-            case STX -> stxExecutor;
-            default -> throw new UnsupportedOperationException("Not yet implemented: " + instruction.operation());
+    public void accept(Machine machine, Instruction instruction) {
+        final Operation operation = instruction.operation();
+
+        if (operation == Operation.NOP) {
+            return;
+        }
+
+        final Address address = instruction.address();
+        final byte indexSpecification = instruction.indexSpecification();
+        final FieldSpecification fieldSpecification = instruction.modification().toFieldSpecification();
+
+        final OperationExecutor specializedExecutor = switch (operation) {
+            case LDA -> new LDAExecutor(twoBytesSignedMathService, fieldSpecificationService, address, indexSpecification, fieldSpecification);
+            case LDAN -> new LDANExecutor(twoBytesSignedMathService, fieldSpecificationService, fieldSpecification, address, indexSpecification);
+            case LD1 -> new LD1Executor(twoBytesSignedMathService, fieldSpecificationService, wordService, fieldSpecification, address, indexSpecification);
+            case LDX -> new LDXExecutor(twoBytesSignedMathService, fieldSpecificationService, fieldSpecification, address, indexSpecification);
+            case STA -> new STAExecutor(twoBytesSignedMathService, fieldSpecificationService, fieldSpecification, address, indexSpecification);
+            case STX -> new STXExecutor(twoBytesSignedMathService, fieldSpecificationService, fieldSpecification, address, indexSpecification);
+            default -> throw new UnsupportedOperationException("Not yet implemented: " + operation);
         };
 
-        return specializedExecutor.apply(machine, instruction);
+        specializedExecutor.accept(machine);
     }
 }

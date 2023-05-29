@@ -1,27 +1,31 @@
 package fr.awildelephant.mix.emulator.engine.executor;
 
-import fr.awildelephant.mix.emulator.engine.modification.SetARegister;
-import fr.awildelephant.mix.emulator.engine.modification.StateModification;
 import fr.awildelephant.mix.emulator.engine.state.Machine;
 import fr.awildelephant.mix.emulator.instruction.Address;
+import fr.awildelephant.mix.emulator.instruction.FieldSpecification;
 import fr.awildelephant.mix.emulator.instruction.FieldSpecificationService;
-import fr.awildelephant.mix.emulator.instruction.Instruction;
 import fr.awildelephant.mix.emulator.word.TwoBytesSignedMathService;
 import fr.awildelephant.mix.emulator.word.Word;
 
-public final class LDANExecutor extends AbstractSpecializedExecutor {
+public final class LDANExecutor extends AbstractOperationExecutor {
 
-    public LDANExecutor(TwoBytesSignedMathService mathService, FieldSpecificationService fieldSpecificationService) {
+    private final FieldSpecification fieldSpecification;
+    private final Address address;
+    private final byte indexSpecification;
+
+    public LDANExecutor(TwoBytesSignedMathService mathService, FieldSpecificationService fieldSpecificationService, FieldSpecification fieldSpecification, Address address, byte indexSpecification) {
         super(mathService, fieldSpecificationService);
+        this.fieldSpecification = fieldSpecification;
+        this.address = address;
+        this.indexSpecification = indexSpecification;
     }
 
     @Override
-    public StateModification apply(Machine machine, Instruction instruction) {
-        final Address address = indexingProcess(machine, instruction);
-        final Word memoryValue = machine.memory().get(address);
+    public void accept(Machine machine) {
+        final Word memoryValue = machine.memory().get(indexingProcess(machine, address, indexSpecification));
 
-        final Word newValue = fieldSpecificationService.load(fieldSpecification(instruction), memoryValue);
+        final Word newValue = fieldSpecificationService.load(fieldSpecification, memoryValue);
 
-        return new SetARegister(newValue.negate());
+        machine.registerA().content(newValue.negate());
     }
 }
