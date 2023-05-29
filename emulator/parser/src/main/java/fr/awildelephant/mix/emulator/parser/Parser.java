@@ -13,7 +13,6 @@ import fr.awildelephant.mix.emulator.parser.lexer.token.IntegerToken;
 import fr.awildelephant.mix.emulator.parser.lexer.token.OperationToken;
 import fr.awildelephant.mix.emulator.parser.lexer.token.SpecialToken;
 import fr.awildelephant.mix.emulator.parser.lexer.token.Token;
-import fr.awildelephant.mix.emulator.word.ByteHelper;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -240,13 +239,13 @@ public final class Parser {
                 if (lexer.lookup().type() == TokenType.LEFT_PARENTHESIS) {
                     instructionBuilder.modification(deriveModification(lexer));
                 } else {
-                    instructionBuilder.modification(ByteHelper.b5);
+                    instructionBuilder.modification(5);
                 }
             } else {
-                instructionBuilder.modification(ByteHelper.b5);
+                instructionBuilder.modification(5);
             }
         } else {
-            instructionBuilder.modification(ByteHelper.b5);
+            instructionBuilder.modification(5);
         }
     }
 
