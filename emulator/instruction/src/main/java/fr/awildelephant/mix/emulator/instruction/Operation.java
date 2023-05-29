@@ -166,7 +166,7 @@ public enum Operation {
         this.modification = modification;
     }
 
-    public static Operation fromOperationCodeAndModification(byte operationCode, byte modification) {
+    public static Operation fromOperationCodeAndModification(int operationCode, int modification) {
         for (Operation value : values()) {
             if (value.code() == operationCode) {
                 final byte expectedModification = value.modification();

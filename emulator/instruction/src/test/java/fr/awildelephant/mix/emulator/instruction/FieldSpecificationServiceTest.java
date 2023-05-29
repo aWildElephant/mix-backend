@@ -20,14 +20,14 @@ class FieldSpecificationServiceTest {
     }
 
     private static Stream<Arguments> loadScenarios() {
-        final Word source = new Word(false, (byte) 5, (byte) 0, (byte) 3, (byte) 5, (byte) 4);
+        final Word source = Word.from(false, 5, 0, 3, 5, 4);
         return Stream.of(
                 Arguments.of(new FieldSpecification(0, 5), source, source),
-                Arguments.of(new FieldSpecification(1, 5), source, new Word(true, (byte) 5, (byte) 0, (byte) 3, (byte) 5, (byte) 4)),
-                Arguments.of(new FieldSpecification(3, 5), source, new Word(true, (byte) 0, (byte) 0, (byte) 3, (byte) 5, (byte) 4)),
-                Arguments.of(new FieldSpecification(0, 3), source, new Word(false, (byte) 0, (byte) 0, (byte) 5, (byte) 0, (byte) 3)),
-                Arguments.of(new FieldSpecification(4, 4), source, new Word(true, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 5)),
-                Arguments.of(new FieldSpecification(0, 0), source, new Word(false, (byte) 0, (byte) 0, (byte) 0, (byte) 0, (byte) 0))
+                Arguments.of(new FieldSpecification(1, 5), source, Word.from(true, 5, 0, 3, 5, 4)),
+                Arguments.of(new FieldSpecification(3, 5), source, Word.from(true, 0, 0, 3, 5, 4)),
+                Arguments.of(new FieldSpecification(0, 3), source, Word.from(false, 0, 0, 5, 0, 3)),
+                Arguments.of(new FieldSpecification(4, 4), source, Word.from(true, 0, 0, 0, 0, 5)),
+                Arguments.of(new FieldSpecification(0, 0), source, Word.from(false, 0, 0, 0, 0, 0))
         );
     }
 
@@ -38,15 +38,15 @@ class FieldSpecificationServiceTest {
     }
 
     private static Stream<Arguments> storeScenarios() {
-        final Word source = new Word(true, (byte) 6, (byte) 7, (byte) 8, (byte) 9, (byte) 0);
-        final Word destination = new Word(false, (byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 5);
+        final Word source = Word.from(true, 6, 7, 8, 9, 0);
+        final Word destination = Word.from(false, 1, 2, 3, 4, 5);
         return Stream.of(
                 Arguments.of(new FieldSpecification(0, 5), source, destination, source),
-                Arguments.of(new FieldSpecification(1, 5), source, destination, new Word(false, (byte) 6, (byte) 7, (byte) 8, (byte) 9, (byte) 0)),
-                Arguments.of(new FieldSpecification(5, 5), source, destination, new Word(false, (byte) 1, (byte) 2, (byte) 3, (byte) 4, (byte) 0)),
-                Arguments.of(new FieldSpecification(2, 2), source, destination, new Word(false, (byte) 1, (byte) 0, (byte) 3, (byte) 4, (byte) 5)),
-                Arguments.of(new FieldSpecification(2, 3), source, destination, new Word(false, (byte) 1, (byte) 9, (byte) 0, (byte) 4, (byte) 5)),
-                Arguments.of(new FieldSpecification(0, 1), source, destination, new Word(true, (byte) 0, (byte) 2, (byte) 3, (byte) 4, (byte) 5))
+                Arguments.of(new FieldSpecification(1, 5), source, destination, Word.from(false, 6, 7, 8, 9, 0)),
+                Arguments.of(new FieldSpecification(5, 5), source, destination, Word.from(false, 1, 2, 3, 4, 0)),
+                Arguments.of(new FieldSpecification(2, 2), source, destination, Word.from(false, 1, 0, 3, 4, 5)),
+                Arguments.of(new FieldSpecification(2, 3), source, destination, Word.from(false, 1, 9, 0, 4, 5)),
+                Arguments.of(new FieldSpecification(0, 1), source, destination, Word.from(true, 0, 2, 3, 4, 5))
         );
     }
 }

@@ -16,6 +16,14 @@ public final class TwoBytesSigned {
         bitset.clear();
     }
 
+    public static TwoBytesSigned from(boolean sign, int b1, int b2) {
+        final TwoBytesSigned result = new TwoBytesSigned();
+        result.sign(sign);
+        result.b1(b1);
+        result.b2(b2);
+        return result;
+    }
+
     public static TwoBytesSigned fromInt(int value) {
         final boolean sign = value > 0;
         final int valueAbs = Math.abs(value);
