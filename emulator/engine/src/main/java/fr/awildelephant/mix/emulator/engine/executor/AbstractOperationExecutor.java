@@ -3,15 +3,8 @@ package fr.awildelephant.mix.emulator.engine.executor;
 import fr.awildelephant.mix.emulator.engine.state.Machine;
 import fr.awildelephant.mix.emulator.engine.state.SignedTwoBytesRegister;
 import fr.awildelephant.mix.emulator.instruction.Address;
-import fr.awildelephant.mix.emulator.instruction.FieldSpecificationService;
 
 public abstract class AbstractOperationExecutor implements OperationExecutor {
-
-    protected final FieldSpecificationService fieldSpecificationService;
-
-    protected AbstractOperationExecutor(FieldSpecificationService fieldSpecificationService) {
-        this.fieldSpecificationService = fieldSpecificationService;
-    }
 
     protected Address indexingProcess(Machine machine, Address address, byte indexSpecification) {
         return switch (indexSpecification) {

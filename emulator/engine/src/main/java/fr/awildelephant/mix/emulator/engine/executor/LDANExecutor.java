@@ -3,7 +3,6 @@ package fr.awildelephant.mix.emulator.engine.executor;
 import fr.awildelephant.mix.emulator.engine.state.Machine;
 import fr.awildelephant.mix.emulator.instruction.Address;
 import fr.awildelephant.mix.emulator.instruction.FieldSpecification;
-import fr.awildelephant.mix.emulator.instruction.FieldSpecificationService;
 import fr.awildelephant.mix.emulator.word.Word;
 
 public final class LDANExecutor extends AbstractOperationExecutor {
@@ -12,8 +11,7 @@ public final class LDANExecutor extends AbstractOperationExecutor {
     private final Address address;
     private final byte indexSpecification;
 
-    public LDANExecutor(FieldSpecificationService fieldSpecificationService, FieldSpecification fieldSpecification, Address address, byte indexSpecification) {
-        super(fieldSpecificationService);
+    public LDANExecutor(FieldSpecification fieldSpecification, Address address, byte indexSpecification) {
         this.fieldSpecification = fieldSpecification;
         this.address = address;
         this.indexSpecification = indexSpecification;
@@ -23,7 +21,7 @@ public final class LDANExecutor extends AbstractOperationExecutor {
     public void accept(Machine machine) {
         final Word memoryValue = machine.memory().get(indexingProcess(machine, address, indexSpecification));
 
-        final Word newValue = fieldSpecificationService.load(fieldSpecification, memoryValue);
+        final Word newValue = fieldSpecification.load(memoryValue);
 
         machine.registerA().content(newValue.negate());
     }

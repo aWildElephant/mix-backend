@@ -9,14 +9,12 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class FieldSpecificationServiceTest {
-
-    private final FieldSpecificationService fieldSpecificationService = new FieldSpecificationService();
+class FieldSpecificationTest {
 
     @ParameterizedTest
     @MethodSource("loadScenarios")
     void load(FieldSpecification specification, Word source, Word expected) {
-        assertThat(fieldSpecificationService.load(specification, source)).isEqualTo(expected);
+        assertThat(specification.load(source)).isEqualTo(expected);
     }
 
     private static Stream<Arguments> loadScenarios() {
@@ -34,7 +32,7 @@ class FieldSpecificationServiceTest {
     @ParameterizedTest
     @MethodSource("storeScenarios")
     void store(FieldSpecification specification, Word source, Word destination, Word expected) {
-        assertThat(fieldSpecificationService.store(specification, source, destination)).isEqualTo(expected);
+        assertThat(specification.store(source, destination)).isEqualTo(expected);
     }
 
     private static Stream<Arguments> storeScenarios() {

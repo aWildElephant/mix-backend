@@ -3,7 +3,6 @@ package fr.awildelephant.mix.emulator.engine.executor;
 import fr.awildelephant.mix.emulator.engine.state.Machine;
 import fr.awildelephant.mix.emulator.instruction.Address;
 import fr.awildelephant.mix.emulator.instruction.FieldSpecification;
-import fr.awildelephant.mix.emulator.instruction.FieldSpecificationService;
 import fr.awildelephant.mix.emulator.word.Word;
 
 public final class STXExecutor extends AbstractOperationExecutor {
@@ -12,8 +11,7 @@ public final class STXExecutor extends AbstractOperationExecutor {
     private final Address address;
     private final byte indexSpecification;
 
-    public STXExecutor(FieldSpecificationService fieldSpecificationService, FieldSpecification fieldSpecification, Address address, byte indexSpecification) {
-        super(fieldSpecificationService);
+    public STXExecutor(FieldSpecification fieldSpecification, Address address, byte indexSpecification) {
         this.fieldSpecification = fieldSpecification;
         this.address = address;
         this.indexSpecification = indexSpecification;
@@ -25,7 +23,7 @@ public final class STXExecutor extends AbstractOperationExecutor {
         final Word memoryValue = machine.memory().get(memoryAddress);
         final Word registerValue = machine.registerX().content();
 
-        final Word newValue = fieldSpecificationService.store(fieldSpecification, registerValue, memoryValue);
+        final Word newValue = fieldSpecification.store(registerValue, memoryValue);
 
         machine.memory().put(memoryAddress, newValue);
     }

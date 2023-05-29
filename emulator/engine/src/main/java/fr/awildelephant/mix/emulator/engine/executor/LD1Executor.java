@@ -3,7 +3,6 @@ package fr.awildelephant.mix.emulator.engine.executor;
 import fr.awildelephant.mix.emulator.engine.state.Machine;
 import fr.awildelephant.mix.emulator.instruction.Address;
 import fr.awildelephant.mix.emulator.instruction.FieldSpecification;
-import fr.awildelephant.mix.emulator.instruction.FieldSpecificationService;
 import fr.awildelephant.mix.emulator.word.TwoBytesSigned;
 import fr.awildelephant.mix.emulator.word.Word;
 import fr.awildelephant.mix.emulator.word.WordService;
@@ -15,9 +14,7 @@ public final class LD1Executor extends AbstractOperationExecutor {
     private final Address address;
     private final byte indexSpecification;
 
-    public LD1Executor(FieldSpecificationService fieldSpecificationService, WordService wordService, FieldSpecification fieldSpecification, Address address, byte indexSpecification) {
-        super(fieldSpecificationService);
-
+    public LD1Executor(WordService wordService, FieldSpecification fieldSpecification, Address address, byte indexSpecification) {
         this.wordService = wordService;
         this.fieldSpecification = fieldSpecification;
         this.address = address;
@@ -30,7 +27,7 @@ public final class LD1Executor extends AbstractOperationExecutor {
         final Address memoryAddress = indexingProcess(machine, address, indexSpecification);
         final Word memoryValue = machine.memory().get(memoryAddress);
 
-        final TwoBytesSigned newValue = wordService.extract(fieldSpecificationService.load(fieldSpecification, memoryValue));
+        final TwoBytesSigned newValue = wordService.extract(fieldSpecification.load(memoryValue));
 
         machine.registerI1().content(newValue);
     }

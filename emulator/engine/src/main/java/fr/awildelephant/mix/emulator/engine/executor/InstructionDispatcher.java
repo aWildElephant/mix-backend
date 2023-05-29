@@ -3,7 +3,6 @@ package fr.awildelephant.mix.emulator.engine.executor;
 import fr.awildelephant.mix.emulator.engine.state.Machine;
 import fr.awildelephant.mix.emulator.instruction.Address;
 import fr.awildelephant.mix.emulator.instruction.FieldSpecification;
-import fr.awildelephant.mix.emulator.instruction.FieldSpecificationService;
 import fr.awildelephant.mix.emulator.instruction.Instruction;
 import fr.awildelephant.mix.emulator.instruction.Operation;
 import fr.awildelephant.mix.emulator.word.WordService;
@@ -12,11 +11,9 @@ import java.util.function.BiConsumer;
 
 public final class InstructionDispatcher implements BiConsumer<Machine, Instruction> {
 
-    private final FieldSpecificationService fieldSpecificationService;
     private final WordService wordService;
 
-    public InstructionDispatcher(FieldSpecificationService fieldSpecificationService, WordService wordService) {
-        this.fieldSpecificationService = fieldSpecificationService;
+    public InstructionDispatcher(WordService wordService) {
         this.wordService = wordService;
     }
 
@@ -33,12 +30,12 @@ public final class InstructionDispatcher implements BiConsumer<Machine, Instruct
         final FieldSpecification fieldSpecification = instruction.modification().toFieldSpecification();
 
         final OperationExecutor specializedExecutor = switch (operation) {
-            case LDA -> new LDAExecutor(fieldSpecificationService, address, indexSpecification, fieldSpecification);
-            case LDAN -> new LDANExecutor(fieldSpecificationService, fieldSpecification, address, indexSpecification);
-            case LD1 -> new LD1Executor(fieldSpecificationService, wordService, fieldSpecification, address, indexSpecification);
-            case LDX -> new LDXExecutor(fieldSpecificationService, fieldSpecification, address, indexSpecification);
-            case STA -> new STAExecutor(fieldSpecificationService, fieldSpecification, address, indexSpecification);
-            case STX -> new STXExecutor(fieldSpecificationService, fieldSpecification, address, indexSpecification);
+            case LDA -> new LDAExecutor(address, indexSpecification, fieldSpecification);
+            case LDAN -> new LDANExecutor(fieldSpecification, address, indexSpecification);
+            case LD1 -> new LD1Executor(wordService, fieldSpecification, address, indexSpecification);
+            case LDX -> new LDXExecutor(fieldSpecification, address, indexSpecification);
+            case STA -> new STAExecutor(fieldSpecification, address, indexSpecification);
+            case STX -> new STXExecutor(fieldSpecification, address, indexSpecification);
             default -> throw new UnsupportedOperationException("Not yet implemented: " + operation);
         };
 
