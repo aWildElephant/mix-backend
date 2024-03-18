@@ -5,9 +5,9 @@ import fr.awildelephant.mix.emulator.instruction.Address;
 import fr.awildelephant.mix.emulator.instruction.FieldSpecification;
 import fr.awildelephant.mix.emulator.word.WordService;
 
-public final class LD1Executor extends LDiExecutor {
+public final class LD2Executor extends LDiExecutor {
 
-    public LD1Executor(WordService wordService, FieldSpecification fieldSpecification, Address address, byte indexSpecification) {
-        super(wordService, fieldSpecification, address, indexSpecification, Machine::registerI1);
+    public LD2Executor(WordService wordService, FieldSpecification fieldSpecification, Address address, byte indexSpecification) {
+        super(wordService, fieldSpecification, address, indexSpecification, Machine::registerI2);
     }
 }

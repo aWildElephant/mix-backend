@@ -23,9 +23,13 @@ public abstract class AbstractBytesHolder {
         bitSet.set(0, !value);
     }
 
+    public void negate() {
+        bitSet.set(0, !sign());
+    }
+
     protected int getByte(int index) {
         final BitSet region = bitSet.get(bitSetIndex(index), bitSetIndex(index + 1));
-        if (region.length() == 0) {
+        if (region.isEmpty()) {
             return 0;
         }
         return region.toByteArray()[0];
