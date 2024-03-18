@@ -20,9 +20,8 @@ public class LDXNExecutor extends AbstractOperationExecutor {
     @Override
     public void accept(Machine machine) {
         final Word memoryValue = machine.memory().get(indexingProcess(machine, address, indexSpecification));
-
         final Word newValue = fieldSpecification.load(memoryValue);
-
-        machine.registerX().content(newValue.negate());
+        newValue.negate();
+        machine.registerX().content(newValue);
     }
 }

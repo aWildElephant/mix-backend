@@ -61,12 +61,6 @@ public final class Word extends AbstractBytesHolder {
         setByte(4, value);
     }
 
-    public Word negate() {
-        final Word result = new Word(this);
-        result.sign(!sign());
-        return result;
-    }
-
     @Override
     public String toString() {
         return "Word[" + (sign() ? '+' : '-')
