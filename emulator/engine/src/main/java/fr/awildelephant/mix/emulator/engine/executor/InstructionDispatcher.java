@@ -30,6 +30,7 @@ public final class InstructionDispatcher implements BiConsumer<Machine, Instruct
         final FieldSpecification fieldSpecification = instruction.modification().toFieldSpecification();
 
         final OperationExecutor specializedExecutor = switch (operation) {
+            case ADD -> new ADDExecutor(fieldSpecification, address, indexSpecification);
             case LD1 -> new LD1Executor(wordService, fieldSpecification, address, indexSpecification);
             case LD1N -> new LD1NExecutor(wordService, fieldSpecification, address, indexSpecification);
             case LD2 -> new LD2Executor(wordService, fieldSpecification, address, indexSpecification);
@@ -53,6 +54,7 @@ public final class InstructionDispatcher implements BiConsumer<Machine, Instruct
             case ST5 -> new ST5Executor(fieldSpecification, address, indexSpecification);
             case ST6 -> new ST6Executor(fieldSpecification, address, indexSpecification);
             case STA -> new STAExecutor(fieldSpecification, address, indexSpecification);
+            // TODO: STJ
             case STX -> new STXExecutor(fieldSpecification, address, indexSpecification);
             case STZ -> new STZExecutor(fieldSpecification, address, indexSpecification);
             default -> throw new UnsupportedOperationException("Not yet implemented: " + operation);

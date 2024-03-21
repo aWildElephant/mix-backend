@@ -2,6 +2,9 @@ package fr.awildelephant.mix.emulator.word;
 
 public final class Word extends AbstractBytesHolder {
 
+    public static final int MAX_VALUE = 1073741823;
+    public static final int MIN_VALUE = -1073741823;
+
     public Word() {
         super(31);
     }
