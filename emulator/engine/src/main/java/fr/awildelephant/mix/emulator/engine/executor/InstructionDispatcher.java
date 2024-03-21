@@ -57,6 +57,7 @@ public final class InstructionDispatcher implements BiConsumer<Machine, Instruct
             // TODO: STJ
             case STX -> new STXExecutor(fieldSpecification, address, indexSpecification);
             case STZ -> new STZExecutor(fieldSpecification, address, indexSpecification);
+            case SUB -> new SUBExecutor(fieldSpecification, address, indexSpecification);
             default -> throw new UnsupportedOperationException("Not yet implemented: " + operation);
         };
 
