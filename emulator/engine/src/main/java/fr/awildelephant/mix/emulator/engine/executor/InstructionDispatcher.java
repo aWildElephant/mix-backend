@@ -47,6 +47,7 @@ public final class InstructionDispatcher implements BiConsumer<Machine, Instruct
             case LDAN -> new LDANExecutor(fieldSpecification, address, indexSpecification);
             case LDX -> new LDXExecutor(fieldSpecification, address, indexSpecification);
             case LDXN -> new LDXNExecutor(fieldSpecification, address, indexSpecification);
+            case MUL -> new MULExecutor(fieldSpecification, address, indexSpecification);
             case ST1 -> new ST1Executor(fieldSpecification, address, indexSpecification);
             case ST2 -> new ST2Executor(fieldSpecification, address, indexSpecification);
             case ST3 -> new ST3Executor(fieldSpecification, address, indexSpecification);

@@ -18,15 +18,33 @@ public final class MathUtils {
         return handleOverflow(subtraction);
     }
 
-    private static ComputationResult<Word> handleOverflow(int substraction) {
-        if (substraction < Word.MIN_VALUE) {
-            final int remainder = Word.MAX_VALUE + substraction - Word.MIN_VALUE + 1;
+    private static ComputationResult<Word> handleOverflow(int value) {
+        if (value < Word.MIN_VALUE) {
+            final int remainder = Word.MAX_VALUE + value - Word.MIN_VALUE + 1;
             return new ComputationResult<>(WordHelper.toWord(remainder), true);
-        } else if (substraction > Word.MAX_VALUE) {
-            final int remainder = Word.MIN_VALUE + substraction - Word.MAX_VALUE - 1;
+        } else if (value > Word.MAX_VALUE) {
+            final int remainder = Word.MIN_VALUE + value - Word.MAX_VALUE - 1;
             return new ComputationResult<>(WordHelper.toWord(remainder), true);
         } else {
-            return new ComputationResult<>(WordHelper.toWord(substraction), false);
+            return new ComputationResult<>(WordHelper.toWord(value), false);
+        }
+    }
+
+    public static ComputationResult<TenBytesSigned> multiply(Word first, Word second) {
+        final long multiplication = (long) WordHelper.toInt(first) * WordHelper.toInt(second);
+
+        return handleOverflow(multiplication);
+    }
+
+    private static ComputationResult<TenBytesSigned> handleOverflow(long value) {
+        if (value < TenBytesSigned.MIN_VALUE) {
+            final long remainder = TenBytesSigned.MAX_VALUE + value - TenBytesSigned.MIN_VALUE + 1;
+            return new ComputationResult<>(WordHelper.toWord(remainder), true);
+        } else if (value > TenBytesSigned.MAX_VALUE) {
+            final long remainder = TenBytesSigned.MIN_VALUE + value - TenBytesSigned.MAX_VALUE - 1;
+            return new ComputationResult<>(WordHelper.toWord(remainder), true);
+        } else {
+            return new ComputationResult<>(WordHelper.toWord(value), false);
         }
     }
 }

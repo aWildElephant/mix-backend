@@ -65,17 +65,6 @@ public final class Word extends AbstractBytesHolder {
     }
 
     @Override
-    public String toString() {
-        return "Word[" + (sign() ? '+' : '-')
-                + ',' + b1()
-                + ',' + b2()
-                + ',' + b3()
-                + ',' + b4()
-                + ',' + b5()
-                + ']';
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof final Word other)) {
             return false;
