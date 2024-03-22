@@ -31,6 +31,7 @@ public final class InstructionDispatcher implements BiConsumer<Machine, Instruct
 
         final OperationExecutor specializedExecutor = switch (operation) {
             case ADD -> new ADDExecutor(fieldSpecification, address, indexSpecification);
+            // TODO: DIV
             case LD1 -> new LD1Executor(wordService, fieldSpecification, address, indexSpecification);
             case LD1N -> new LD1NExecutor(wordService, fieldSpecification, address, indexSpecification);
             case LD2 -> new LD2Executor(wordService, fieldSpecification, address, indexSpecification);
