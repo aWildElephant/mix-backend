@@ -37,6 +37,7 @@ class MULExecutorTest {
     void test2() {
         final Machine machine = MachineBuilder.builder()
                 .withARegister(WordHelper.toWord(-112))
+                // b2 through b5 could be set to anything
                 .withMemoryCell(1000, Word.from(true, 2, 0, 0, 0, 0))
                 .build();
 

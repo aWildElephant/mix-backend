@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static fr.awildelephant.mix.emulator.instruction.Operation.*;
+import static fr.awildelephant.mix.emulator.parser.lexer.TokenType.LEFT_PARENTHESIS;
 
 // TODO: explanation on what went wrong for parsing errors
 public final class Parser {
@@ -55,6 +56,7 @@ public final class Parser {
             final Instruction.InstructionBuilder instructionBuilder = Instruction.builder();
             instructionBuilder.operation(operation);
 
+            // TODO: some operators do not accept modifications, we should then throw an error if one is provided
             deriveSpecification(lexer, instructionBuilder);
 
             if (operation.modification() >= 0) {
@@ -235,12 +237,12 @@ public final class Parser {
                 if (lexer.lookup().type() == TokenType.VALUE) {
                     instructionBuilder.indexSpecification((byte) consumeAndExpectInteger(lexer));
                 }
+            } else {
+                instructionBuilder.modification(5);
+            }
 
-                if (lexer.lookup().type() == TokenType.LEFT_PARENTHESIS) {
-                    instructionBuilder.modification(deriveModification(lexer));
-                } else {
-                    instructionBuilder.modification(5);
-                }
+            if (lexer.lookup().type() == LEFT_PARENTHESIS) {
+                instructionBuilder.modification(deriveModification(lexer));
             } else {
                 instructionBuilder.modification(5);
             }
@@ -250,7 +252,7 @@ public final class Parser {
     }
 
     private byte deriveModification(Lexer lexer) {
-        consumeAndExpect(lexer, TokenType.LEFT_PARENTHESIS);
+        consumeAndExpect(lexer, LEFT_PARENTHESIS);
         final int l = consumeAndExpectInteger(lexer);
         consumeAndExpect(lexer, TokenType.COLON);
         final int r = consumeAndExpectInteger(lexer);
