@@ -1,6 +1,6 @@
 package fr.awildelephant.mix.emulator.parser;
 
-import fr.awildelephant.mix.emulator.instruction.AddressService;
+import fr.awildelephant.mix.emulator.instruction.Address;
 import fr.awildelephant.mix.emulator.instruction.Instruction;
 import fr.awildelephant.mix.emulator.instruction.Operation;
 import org.junit.jupiter.api.Test;
@@ -13,8 +13,6 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ParserTest {
-
-    private final AddressService addressService = new AddressService();
 
     @Test
     void it_should_parse_all_examples_from_page_128() {
@@ -38,7 +36,7 @@ class ParserTest {
 
     private void assertParsing(String source, List<Instruction> expected) {
         final ByteArrayInputStream inputStream = new ByteArrayInputStream(source.getBytes(StandardCharsets.UTF_8));
-        final List<Instruction> actual = new Parser(addressService).parse(inputStream).instructions();
+        final List<Instruction> actual = new Parser().parse(inputStream).instructions();
         assertThat(actual).isEqualTo(expected);
     }
 
@@ -47,7 +45,7 @@ class ParserTest {
                 .operation(getOperation(operationCode))
                 .modification(modification)
                 .indexSpecification((byte) indexSpecifiation)
-                .address(addressService.toAddress(address))
+                .address(Address.fromInt(address))
                 .build();
     }
 

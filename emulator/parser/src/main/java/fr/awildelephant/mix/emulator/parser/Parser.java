@@ -1,7 +1,6 @@
 package fr.awildelephant.mix.emulator.parser;
 
 import fr.awildelephant.mix.emulator.instruction.Address;
-import fr.awildelephant.mix.emulator.instruction.AddressService;
 import fr.awildelephant.mix.emulator.instruction.Instruction;
 import fr.awildelephant.mix.emulator.instruction.InstructionSequence;
 import fr.awildelephant.mix.emulator.instruction.Operation;
@@ -25,12 +24,6 @@ import static fr.awildelephant.mix.emulator.parser.lexer.TokenType.LEFT_PARENTHE
 
 // TODO: explanation on what went wrong for parsing errors
 public final class Parser {
-
-    private final AddressService addressService;
-
-    public Parser(AddressService addressService) {
-        this.addressService = addressService;
-    }
 
     public InstructionSequence parse(InputStream inputStream) {
         final Lexer lexer = new Lexer(new InputWithLookup(inputStream));

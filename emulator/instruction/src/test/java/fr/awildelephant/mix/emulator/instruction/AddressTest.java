@@ -4,9 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class AddressServiceTest {
-
-    private final AddressService addressService = new AddressService();
+class AddressTest {
 
     @Test
     void it_should_transform_0() {
@@ -24,6 +22,6 @@ class AddressServiceTest {
     }
 
     private void assertValidTransformation(int value) {
-        assertThat(addressService.toInteger(addressService.toAddress(value))).isEqualTo(value);
+        assertThat(Address.fromInt(value).toInt()).isEqualTo(value);
     }
 }

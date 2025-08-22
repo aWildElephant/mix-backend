@@ -1,24 +1,20 @@
 package fr.awildelephant.mix.emulator.engine.state;
 
 import fr.awildelephant.mix.emulator.instruction.Address;
-import fr.awildelephant.mix.emulator.instruction.AddressService;
 import fr.awildelephant.mix.emulator.word.Word;
 
 public class Memory {
 
     public static final int MEMORY_SIZE = 4000;
 
-    private final AddressService addressService;
-
     private final Word[] words;
 
-    public Memory(AddressService addressService) {
-        this.addressService = addressService;
+    public Memory() {
         words = new Word[MEMORY_SIZE];
     }
 
     public Word get(Address address) {
-        return get(addressService.toInteger(address));
+        return get(address.toInt());
     }
 
     public Word get(int address) {
@@ -28,7 +24,7 @@ public class Memory {
     }
 
     public void put(Address address, Word word) {
-        put(addressService.toInteger(address), word);
+        put(address.toInt(), word);
     }
 
     public void put(int address, Word word) {

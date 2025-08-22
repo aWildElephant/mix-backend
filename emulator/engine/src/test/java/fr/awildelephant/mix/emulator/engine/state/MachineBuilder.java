@@ -1,13 +1,11 @@
 package fr.awildelephant.mix.emulator.engine.state;
 
-import fr.awildelephant.mix.emulator.instruction.AddressService;
 import fr.awildelephant.mix.emulator.word.TwoBytesSigned;
 import fr.awildelephant.mix.emulator.word.Word;
 
 public final class MachineBuilder {
 
-    // TODO: replace AddressService by methods in WordHelper
-    private final Machine machine = new Machine(new AddressService());
+    private final Machine machine = new Machine();
 
     private MachineBuilder() {
 

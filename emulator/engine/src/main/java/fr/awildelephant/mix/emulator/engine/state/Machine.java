@@ -1,7 +1,5 @@
 package fr.awildelephant.mix.emulator.engine.state;
 
-import fr.awildelephant.mix.emulator.instruction.AddressService;
-
 public final class Machine {
 
     private final SignedFiveBytesRegister registerA = new SignedFiveBytesRegister();
@@ -16,8 +14,8 @@ public final class Machine {
     private final ComparisonIndicator comparisonIndicator = new ComparisonIndicator();
     private final Memory memory;
 
-    public Machine(AddressService addressService) {
-        memory = new Memory(addressService);
+    public Machine() {
+        memory = new Memory();
     }
 
     public SignedFiveBytesRegister registerA() {
