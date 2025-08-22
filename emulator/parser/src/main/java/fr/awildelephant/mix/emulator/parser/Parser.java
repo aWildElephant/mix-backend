@@ -218,15 +218,15 @@ public final class Parser {
             case CMP5 -> CMP5;
             case CMP6 -> CMP6;
             case CMPX -> CMPX;
-            default -> null;
+            default -> throw new UnsupportedOperationException();
         };
     }
 
     private void deriveSpecification(Lexer lexer, Instruction.InstructionBuilder instructionBuilder) {
         final Token t0 = lexer.lookup();
 
-        if (t0 instanceof IntegerToken addressToken) {
-            instructionBuilder.address(addressService.toAddress(addressToken.value()));
+        if (t0 instanceof IntegerToken(int value)) {
+            instructionBuilder.address(addressService.toAddress(value));
             lexer.consume();
 
             if (lexer.lookup() == SpecialToken.COMMA) {
@@ -267,9 +267,9 @@ public final class Parser {
     }
 
     private int consumeAndExpectInteger(Lexer lexer) {
-        if (lexer.lookup() instanceof IntegerToken integerToken) {
+        if (lexer.lookup() instanceof IntegerToken(int value)) {
             lexer.consume();
-            return integerToken.value();
+            return value;
         } else {
             throw new ParseError();
         }
