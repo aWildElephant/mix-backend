@@ -5,11 +5,10 @@ import fr.awildelephant.mix.emulator.engine.state.Machine;
 import fr.awildelephant.mix.emulator.engine.state.MachineBuilder;
 import fr.awildelephant.mix.emulator.word.Word;
 import fr.awildelephant.mix.emulator.word.WordHelper;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static fr.awildelephant.mix.emulator.engine.helper.ExecutorTestHelper.execute;
-import static org.assertj.core.api.Assertions.assertThat;
+import static fr.awildelephant.mix.emulator.engine.testutil.MachineAsserter.assertThatMachine;
 
 class MULExecutorTest {
 
@@ -25,16 +24,15 @@ class MULExecutorTest {
 
         execute("MUL 1000", machine);
 
-        // TODO: build asserter for Machine
-        assertThat(machine.registerA().content()).isEqualTo(Word.from(true, 0, 1, 2, 3, 4));
-        assertThat(machine.registerX().content()).isEqualTo(Word.from(true, 5, 4, 3, 2, 1));
-        assertThat(machine.overflowToggle().state()).isFalse();
+        assertThatMachine(machine)
+                .hasRegisterA(Word.from(true, 0, 1, 2, 3, 4))
+                .hasRegisterX(Word.from(true, 5, 4, 3, 2, 1))
+                .hasOverflowToggleNotSet();
     }
 
     /**
      * page 132 second MUL example
      */
-    @Disabled("parse error")
     @Test
     void test2() {
         final Machine machine = MachineBuilder.builder()
@@ -44,9 +42,10 @@ class MULExecutorTest {
 
         execute("MUL 1000(1:1)", machine);
 
-        assertThat(machine.registerA().content()).isEqualTo(Word.from(false, 0, 0, 0, 0, 0));
-        assertThat(machine.registerX().content()).isEqualTo(WordHelper.toWord(-224));
-        assertThat(machine.overflowToggle().state()).isFalse();
+        assertThatMachine(machine)
+                .hasRegisterA(Word.from(false, 0, 0, 0, 0, 0))
+                .hasRegisterX(WordHelper.toWord(-224))
+                .hasOverflowToggleNotSet();
     }
 
     /**
@@ -61,8 +60,9 @@ class MULExecutorTest {
 
         execute("MUL 1000", machine);
 
-        assertThat(machine.registerA().content()).isEqualTo(WordStringRepresentation.toWord("[+|,100|0|,224]"));
-        assertThat(machine.registerX().content()).isEqualTo(WordStringRepresentation.toWord("[+|8|0|0|0|0]"));
-        assertThat(machine.overflowToggle().state()).isFalse();
+        assertThatMachine(machine)
+                .hasRegisterA("[+|,100|0|,224]")
+                .hasRegisterX("[+|8|0|0|0|0]")
+                .hasOverflowToggleNotSet();
     }
 }
