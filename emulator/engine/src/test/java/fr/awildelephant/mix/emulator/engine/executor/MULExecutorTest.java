@@ -8,6 +8,7 @@ import fr.awildelephant.mix.emulator.word.WordHelper;
 import org.junit.jupiter.api.Test;
 
 import static fr.awildelephant.mix.emulator.engine.helper.ExecutorTestHelper.execute;
+import static fr.awildelephant.mix.emulator.engine.testutil.CommonWords.minusZero;
 import static fr.awildelephant.mix.emulator.engine.testutil.MachineAsserter.assertThatMachine;
 
 class MULExecutorTest {
@@ -44,7 +45,7 @@ class MULExecutorTest {
         execute("MUL 1000(1:1)", machine);
 
         assertThatMachine(machine)
-                .hasRegisterA(Word.from(false, 0, 0, 0, 0, 0))
+                .hasRegisterA(minusZero())
                 .hasRegisterX(WordHelper.toWord(-224))
                 .hasOverflowToggleNotSet();
     }

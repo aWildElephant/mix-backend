@@ -21,6 +21,11 @@ public final class MachineBuilder {
         return this;
     }
 
+    public MachineBuilder withXRegister(final Word content) {
+        machine.registerX().content(content);
+        return this;
+    }
+
     public MachineBuilder withMemoryCell(int address, Word content) {
         machine.memory().put(address, content);
         return this;
