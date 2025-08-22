@@ -13,6 +13,10 @@ public final class Word extends AbstractBytesHolder {
         super(source);
     }
 
+    public static Word zero() {
+        return from(true, 0, 0, 0, 0, 0);
+    }
+
     public static Word from(boolean sign, int b1, int b2, int b3, int b4, int b5) {
         final Word result = new Word();
         result.sign(sign);

@@ -1,5 +1,9 @@
 package fr.awildelephant.mix.emulator.word;
 
+import static fr.awildelephant.mix.emulator.word.WordHelper.toInt;
+import static fr.awildelephant.mix.emulator.word.WordHelper.toLong;
+import static fr.awildelephant.mix.emulator.word.WordHelper.toWord;
+
 public final class MathUtils {
 
     private MathUtils() {
@@ -46,5 +50,24 @@ public final class MathUtils {
         } else {
             return new ComputationResult<>(WordHelper.toWord(value), false);
         }
+    }
+
+    public static DivisionResult divide(final TenBytesSigned numerator, final Word denominator) {
+        final int denominatorValue = toInt(denominator);
+
+        if (denominatorValue == 0) {
+            return new DivisionResult(Word.zero(), Word.zero(), true);
+        }
+
+        final long numeratorValue = toLong(numerator);
+
+        final long quotientValue = numeratorValue / denominatorValue;
+        final long remainderValue = numeratorValue % denominatorValue;
+
+        final ComputationResult<Word> quotient = handleOverflow((int) quotientValue);
+        final Word remainder = toWord((int) remainderValue);
+        remainder.sign(numerator.sign());
+
+        return new DivisionResult(quotient.result(), remainder, quotient.overflow());
     }
 }

@@ -8,7 +8,11 @@ public final class OverflowToggle {
         return state;
     }
 
-    public void on() {
+    public void set() {
         state = true;
+    }
+
+    public void clear() {
+        state = false;
     }
 }

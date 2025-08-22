@@ -5,14 +5,12 @@ import fr.awildelephant.mix.emulator.engine.state.Machine;
 import fr.awildelephant.mix.emulator.engine.state.MachineBuilder;
 import fr.awildelephant.mix.emulator.word.Word;
 import fr.awildelephant.mix.emulator.word.WordHelper;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static fr.awildelephant.mix.emulator.engine.helper.ExecutorTestHelper.execute;
 import static fr.awildelephant.mix.emulator.engine.testutil.CommonWords.minusZero;
 import static fr.awildelephant.mix.emulator.engine.testutil.MachineAsserter.assertThatMachine;
 
-@Disabled // not yet implemented
 public class DIVExecutorTest {
 
     /**
@@ -49,8 +47,8 @@ public class DIVExecutorTest {
 
         assertThatMachine(machine)
                 // b4 and b5 are undefined in the example
-                .hasRegisterA("[+|0|,617|0|0]")
+                .hasRegisterA("[+|0|,617|32|1]")
                 // b4 is undefined in the example
-                .hasRegisterX(Word.from(false, 0, 0, 0, 0, 1));
+                .hasRegisterX(Word.from(false, 0, 0, 0, 1, 1));
     }
 }

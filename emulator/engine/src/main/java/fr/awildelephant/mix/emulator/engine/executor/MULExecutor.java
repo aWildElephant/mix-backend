@@ -47,7 +47,7 @@ public final class MULExecutor extends AbstractOperationExecutor {
         machine.registerA().content(registerAValue);
         machine.registerX().content(registerXValue);
         if (computation.overflow()) {
-            machine.overflowToggle().on();
+            machine.overflowToggle().set();
         }
     }
 }

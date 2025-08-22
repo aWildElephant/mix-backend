@@ -31,7 +31,7 @@ public final class SUBExecutor extends AbstractOperationExecutor {
 
         machine.registerA().content(computation.result());
         if (computation.overflow()) {
-            machine.overflowToggle().on();
+            machine.overflowToggle().set();
         }
     }
 }
