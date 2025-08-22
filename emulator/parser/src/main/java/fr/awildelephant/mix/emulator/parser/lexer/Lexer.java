@@ -85,6 +85,9 @@ public final class Lexer {
                 case "," -> {
                     return SpecialToken.COMMA;
                 }
+                case "-" -> {
+                    return SpecialToken.MINUS;
+                }
             }
 
             final TokenType operator = operatorMap.get(tokenString.toUpperCase());
@@ -127,6 +130,9 @@ public final class Lexer {
             }
             case ',' -> {
                 return ",";
+            }
+            case '-' -> {
+                return "-";
             }
         }
 

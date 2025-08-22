@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static fr.awildelephant.mix.emulator.engine.helper.ExecutorTestHelper.execute;
 import static fr.awildelephant.mix.emulator.engine.testutil.MachineAsserter.assertThatMachine;
 
-public class ADDExecutorTest {
+class ADDExecutorTest {
 
     /**
      * page 132 ADD example

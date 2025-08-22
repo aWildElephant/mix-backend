@@ -15,7 +15,7 @@ public final class TwoBytesSigned extends AbstractBytesHolder {
     }
 
     public static TwoBytesSigned fromInt(int value) {
-        final boolean sign = value > 0;
+        final boolean sign = value >= 0;
         final int valueAbs = Math.abs(value);
         final int firstByte = extractByte(valueAbs >>> 6);
         final int secondByte = extractByte(valueAbs);
@@ -63,6 +63,10 @@ public final class TwoBytesSigned extends AbstractBytesHolder {
     public TwoBytesSigned add(TwoBytesSigned other) {
         final int intResult = toInt() + other.toInt();
         return TwoBytesSigned.fromInt(intResult % 4_095);
+    }
+
+    public Word toWord() {
+        return Word.from(sign(), 0, 0, 0, b1(), b2());
     }
 
     @Override

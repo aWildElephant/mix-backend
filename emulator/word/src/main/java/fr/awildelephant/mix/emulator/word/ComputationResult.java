@@ -1,5 +1,7 @@
 package fr.awildelephant.mix.emulator.word;
 
+import java.util.Objects;
+
 public class ComputationResult<T extends AbstractBytesHolder> {
 
     private final T result;
@@ -16,5 +18,20 @@ public class ComputationResult<T extends AbstractBytesHolder> {
 
     public boolean overflow() {
         return overflow;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof final ComputationResult<?> other)) {
+            return false;
+        }
+
+        return overflow == other.overflow
+                && Objects.equals(result, other.result);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(result, overflow);
     }
 }

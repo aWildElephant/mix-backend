@@ -11,7 +11,7 @@ import static fr.awildelephant.mix.emulator.engine.helper.ExecutorTestHelper.exe
 import static fr.awildelephant.mix.emulator.engine.testutil.CommonWords.minusZero;
 import static fr.awildelephant.mix.emulator.engine.testutil.MachineAsserter.assertThatMachine;
 
-public class DIVExecutorTest {
+class DIVExecutorTest {
 
     /**
      * page 132 DIV example

@@ -1,5 +1,6 @@
 package fr.awildelephant.mix.emulator.parser;
 
+import fr.awildelephant.mix.emulator.instruction.Address;
 import fr.awildelephant.mix.emulator.instruction.AddressService;
 import fr.awildelephant.mix.emulator.instruction.Instruction;
 import fr.awildelephant.mix.emulator.instruction.InstructionSequence;
@@ -13,6 +14,7 @@ import fr.awildelephant.mix.emulator.parser.lexer.token.IntegerToken;
 import fr.awildelephant.mix.emulator.parser.lexer.token.OperationToken;
 import fr.awildelephant.mix.emulator.parser.lexer.token.SpecialToken;
 import fr.awildelephant.mix.emulator.parser.lexer.token.Token;
+import fr.awildelephant.mix.emulator.word.TwoBytesSigned;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -225,10 +227,19 @@ public final class Parser {
     }
 
     private void deriveSpecification(Lexer lexer, Instruction.InstructionBuilder instructionBuilder) {
-        final Token t0 = lexer.lookup();
+        Token t0 = lexer.lookup();
+        boolean addressSign = true;
+
+        if (t0 == SpecialToken.MINUS) {
+            addressSign = false;
+            lexer.consume();
+            t0 = lexer.lookup();
+        }
 
         if (t0 instanceof IntegerToken(int value)) {
-            instructionBuilder.address(addressService.toAddress(value));
+            final TwoBytesSigned address = TwoBytesSigned.fromInt(value);
+            address.sign(addressSign);
+            instructionBuilder.address(new Address(address));
             lexer.consume();
 
             if (lexer.lookup() == SpecialToken.COMMA) {

@@ -1,6 +1,7 @@
 package fr.awildelephant.mix.emulator.engine.state;
 
 import fr.awildelephant.mix.emulator.instruction.AddressService;
+import fr.awildelephant.mix.emulator.word.TwoBytesSigned;
 import fr.awildelephant.mix.emulator.word.Word;
 
 public final class MachineBuilder {
@@ -23,6 +24,11 @@ public final class MachineBuilder {
 
     public MachineBuilder withXRegister(final Word content) {
         machine.registerX().content(content);
+        return this;
+    }
+
+    public MachineBuilder withI1Register(final TwoBytesSigned content) {
+        machine.registerI1().content(content);
         return this;
     }
 

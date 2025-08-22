@@ -4,6 +4,7 @@ public enum TokenType {
     COLON,
     COMMA,
     LEFT_PARENTHESIS,
+    MINUS,
     RIGHT_PARENTHESIS,
     VALUE,
 

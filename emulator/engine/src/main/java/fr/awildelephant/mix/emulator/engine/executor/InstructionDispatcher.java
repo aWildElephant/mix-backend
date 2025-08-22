@@ -63,6 +63,8 @@ public final class InstructionDispatcher implements BiConsumer<Machine, Instruct
             case SUB -> new SUBExecutor(fieldSpecification, address, indexSpecification);
             case MUL -> new MULExecutor(fieldSpecification, address, indexSpecification);
             case DIV -> new DIVExecutor(fieldSpecification, address, indexSpecification);
+            // Address transfer operators
+            case ENTA -> new ENTAExecutor(address.value(), indexSpecification);
             default -> throw new UnsupportedOperationException("Not yet implemented: " + operation);
         };
 
