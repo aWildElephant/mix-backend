@@ -66,6 +66,7 @@ public final class InstructionDispatcher implements BiConsumer<Machine, Instruct
             // Address transfer operators
             case ENTA -> new ENTAExecutor(address.value(), indexSpecification);
             case INCA -> new INCAExecutor(address.value());
+            case INCX -> new INCXExecutor(address.value());
             default -> throw new UnsupportedOperationException("Not yet implemented: " + operation);
         };
 
