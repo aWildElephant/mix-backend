@@ -70,6 +70,8 @@ public final class InstructionDispatcher implements BiConsumer<Machine, Instruct
             // TODO: lots of stuff here
             case INCX -> new INCXExecutor(address.value());
             // TODO: several INC* and the DEC*
+            // Comparison operators
+            case CMPA -> new CMPAExecutor(fieldSpecification, address);
             // Jump operators
             case JMP -> new JMPExecutor(address.value());
             case JSJ -> new JSJExecutor(address.value());

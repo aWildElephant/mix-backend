@@ -6,7 +6,7 @@ import fr.awildelephant.mix.emulator.word.TwoBytesSigned;
 
 import java.util.function.Predicate;
 
-public abstract class AbstractJumpOnComparisonStateExecutor implements OperationExecutor, Predicate<ComparisonIndicator.ComparisonIndicatorState> {
+public abstract class AbstractJumpOnComparisonStateExecutor implements OperationExecutor, Predicate<ComparisonIndicator.State> {
 
     private final TwoBytesSigned address;
 

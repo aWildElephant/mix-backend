@@ -2,11 +2,17 @@ package fr.awildelephant.mix.emulator.engine.state;
 
 public class ComparisonIndicator {
 
-    private ComparisonIndicatorState state;
+    private State state;
 
-    public ComparisonIndicatorState state() {
+    public State state() {
         return state;
     }
 
-    public enum ComparisonIndicatorState { LESS, EQUAL, GREATER };
+    public void state(State result) {
+        state = result;
+    }
+
+    public enum State {LESS, EQUAL, GREATER}
+
+    ;
 }
