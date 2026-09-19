@@ -67,12 +67,21 @@ public final class InstructionDispatcher implements BiConsumer<Machine, Instruct
             // Address transfer operators
             case ENTA -> new ENTAExecutor(address.value(), indexSpecification);
             case INCA -> new INCAExecutor(address.value());
+            // TODO: lots of stuff here
             case INCX -> new INCXExecutor(address.value());
+            // TODO: several INC* and the DEC*
             // Jump operators
             case JMP -> new JMPExecutor(address.value());
             case JSJ -> new JSJExecutor(address.value());
             case JOV -> new JOVExecutor(address.value());
             case JNOV -> new JNOVExecutor(address.value());
+            case JL -> new JLExecutor(address.value());
+            case JE -> new JEExecutor(address.value());
+            case JG -> new JGExecutor(address.value());
+            case JGE -> new JGEExecutor(address.value());
+            case JNE -> new JNEExecutor(address.value());
+            case JLE -> new JLEExecutor(address.value());
+            // TODO: JA*, JX*, Ji*
             default -> throw new UnsupportedOperationException("Not yet implemented: " + operation);
         };
 
