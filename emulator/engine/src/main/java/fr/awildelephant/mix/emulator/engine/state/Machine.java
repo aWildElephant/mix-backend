@@ -10,13 +10,18 @@ public final class Machine {
     private final SignedTwoBytesRegister registerI4 = new SignedTwoBytesRegister();
     private final SignedTwoBytesRegister registerI5 = new SignedTwoBytesRegister();
     private final SignedTwoBytesRegister registerI6 = new SignedTwoBytesRegister();
+    /**
+     * Register J holds two bytes, it behaves as if its sign is always +.
+     */
+    private final SignedTwoBytesRegister registerJ = new SignedTwoBytesRegister();
     private final OverflowToggle overflowToggle = new OverflowToggle();
     private final ComparisonIndicator comparisonIndicator = new ComparisonIndicator();
-    private final Memory memory;
+    private final Memory memory = new Memory();
 
-    public Machine() {
-        memory = new Memory();
-    }
+    /**
+     * Additional data on the state of the machine.
+     */
+    private final MetaState metaState = new MetaState();
 
     public SignedFiveBytesRegister registerA() {
         return registerA;
@@ -50,6 +55,10 @@ public final class Machine {
         return registerI6;
     }
 
+    public SignedTwoBytesRegister registerJ() {
+        return registerJ;
+    }
+
     public OverflowToggle overflowToggle() {
         return overflowToggle;
     }
@@ -60,5 +69,9 @@ public final class Machine {
 
     public Memory memory() {
         return memory;
+    }
+
+    public MetaState metaState() {
+        return metaState;
     }
 }

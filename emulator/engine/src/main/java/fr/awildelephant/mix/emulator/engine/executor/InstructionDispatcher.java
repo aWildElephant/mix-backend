@@ -30,6 +30,7 @@ public final class InstructionDispatcher implements BiConsumer<Machine, Instruct
         final FieldSpecification fieldSpecification = instruction.modification().toFieldSpecification();
 
         final OperationExecutor specializedExecutor = switch (operation) {
+            case HLT -> HLTExecutor.getInstance();
             // Loading operators
             case LDA -> new LDAExecutor(address, indexSpecification, fieldSpecification);
             case LDX -> new LDXExecutor(fieldSpecification, address, indexSpecification);
@@ -67,6 +68,11 @@ public final class InstructionDispatcher implements BiConsumer<Machine, Instruct
             case ENTA -> new ENTAExecutor(address.value(), indexSpecification);
             case INCA -> new INCAExecutor(address.value());
             case INCX -> new INCXExecutor(address.value());
+            // Jump operators
+            case JMP -> new JMPExecutor(address.value());
+            case JSJ -> new JSJExecutor(address.value());
+            case JOV -> new JOVExecutor(address.value());
+            case JNOV -> new JNOVExecutor(address.value());
             default -> throw new UnsupportedOperationException("Not yet implemented: " + operation);
         };
 

@@ -5,6 +5,7 @@ import fr.awildelephant.mix.emulator.engine.state.SignedTwoBytesRegister;
 import fr.awildelephant.mix.emulator.instruction.Address;
 import fr.awildelephant.mix.emulator.word.Word;
 
+// FIXME: this class is not necessary, this is helper code
 public abstract class AbstractOperationExecutor implements OperationExecutor {
 
     protected Address indexingProcess(Machine machine, Address address, byte indexSpecification) {
