@@ -72,6 +72,7 @@ public final class InstructionDispatcher implements BiConsumer<Machine, Instruct
             // TODO: several INC* and the DEC*
             // Comparison operators
             case CMPA -> new CMPAExecutor(fieldSpecification, address);
+            // TODO: CMPX, CMPi
             // Jump operators
             case JMP -> new JMPExecutor(address.value());
             case JSJ -> new JSJExecutor(address.value());
@@ -84,6 +85,10 @@ public final class InstructionDispatcher implements BiConsumer<Machine, Instruct
             case JNE -> new JNEExecutor(address.value());
             case JLE -> new JLEExecutor(address.value());
             // TODO: JA*, JX*, Ji*
+            // TODO: SLA, SRA, SLAX, SRAX, SLC, SRC
+            // TODO: MOVE
+            // TODO: input-output operators
+            // TODO: conversion operators
             default -> throw new UnsupportedOperationException("Not yet implemented: " + operation);
         };
 
