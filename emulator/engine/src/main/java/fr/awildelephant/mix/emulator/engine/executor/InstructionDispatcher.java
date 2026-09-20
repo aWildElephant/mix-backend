@@ -96,7 +96,13 @@ public final class InstructionDispatcher implements BiConsumer<Machine, Instruct
             case JANN -> new JANNExecutor(address.value());
             case JANZ -> new JANZExecutor(address.value());
             case JANP -> new JANPExecutor(address.value());
-            // TODO: JX*, Ji*
+            case JXN -> new JXNExecutor(address.value());
+            case JXZ -> new JXZExecutor(address.value());
+            case JXP -> new JXPExecutor(address.value());
+            case JXNN -> new JXNNExecutor(address.value());
+            case JXNZ -> new JXNZExecutor(address.value());
+            case JXNP -> new JXNPExecutor(address.value());
+            // TODO: Ji*
             // TODO: SLA, SRA, SLAX, SRAX, SLC, SRC
             // TODO: MOVE
             // TODO: input-output operators
