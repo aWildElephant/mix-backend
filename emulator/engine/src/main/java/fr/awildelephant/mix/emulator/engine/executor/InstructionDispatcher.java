@@ -109,7 +109,9 @@ public final class InstructionDispatcher implements BiConsumer<Machine, Instruct
             case J1NZ -> new J1NZExecutor(address.value());
             case J1NP -> new J1NPExecutor(address.value());
             // TODO: Ji* for i > 1
-            // TODO: SLA, SRA, SLAX, SRAX, SLC, SRC
+            // Miscellaneous operators
+            case SLA -> new SLAExecutor(address.value());
+            // TODO: SRA, SLAX, SRAX, SLC, SRC
             // TODO: MOVE
             // TODO: input-output operators
             // TODO: conversion operators
