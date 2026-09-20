@@ -57,7 +57,7 @@ public final class InstructionDispatcher implements BiConsumer<Machine, Instruct
             case ST4 -> new ST4Executor(fieldSpecification, address, indexSpecification);
             case ST5 -> new ST5Executor(fieldSpecification, address, indexSpecification);
             case ST6 -> new ST6Executor(fieldSpecification, address, indexSpecification);
-            // TODO: STJ
+            case STJ -> new STJExecutor(fieldSpecification, address, indexSpecification);
             case STZ -> new STZExecutor(fieldSpecification, address, indexSpecification);
             // Arithmetic operators
             case ADD -> new ADDExecutor(fieldSpecification, address, indexSpecification);
