@@ -12,7 +12,7 @@ public final class JGExecutor extends AbstractJumpOnComparisonStateExecutor {
     }
 
     @Override
-    public boolean test(ComparisonIndicator.State comparisonIndicatorState) {
+    public boolean testComparisonIndicatorState(ComparisonIndicator.State comparisonIndicatorState) {
         return comparisonIndicatorState == GREATER;
     }
 }

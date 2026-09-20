@@ -4,20 +4,16 @@ import fr.awildelephant.mix.emulator.engine.state.ComparisonIndicator;
 import fr.awildelephant.mix.emulator.engine.state.Machine;
 import fr.awildelephant.mix.emulator.word.TwoBytesSigned;
 
-import java.util.function.Predicate;
-
-public abstract class AbstractJumpOnComparisonStateExecutor implements OperationExecutor, Predicate<ComparisonIndicator.State> {
-
-    private final TwoBytesSigned address;
+public abstract class AbstractJumpOnComparisonStateExecutor extends AbstractJumpOnConditionExecutor {
 
     public AbstractJumpOnComparisonStateExecutor(TwoBytesSigned address) {
-        this.address = address;
+        super(address);
     }
 
+    protected abstract boolean testComparisonIndicatorState(ComparisonIndicator.State comparisonIndicatorState);
+
     @Override
-    public final void accept(Machine machine) {
-        if (test(machine.comparisonIndicator().state())) {
-            new JMPExecutor(address).accept(machine);
-        }
+    public boolean test(Machine machine) {
+        return testComparisonIndicatorState(machine.comparisonIndicator().state());
     }
 }
