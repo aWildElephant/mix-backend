@@ -5,14 +5,14 @@ import fr.awildelephant.mix.emulator.instruction.Address;
 import fr.awildelephant.mix.emulator.instruction.FieldSpecification;
 import fr.awildelephant.mix.emulator.word.Word;
 
-public final class CMPAExecutor extends AbstractComparisonOperator {
+public final class CMPXExecutor extends AbstractComparisonOperator {
 
-    public CMPAExecutor(FieldSpecification fieldSpecification, Address address) {
+    public CMPXExecutor(FieldSpecification fieldSpecification, Address address) {
         super(fieldSpecification, address);
     }
 
     @Override
     public Word getWordValue(Machine machine) {
-        return machine.registerA().content();
+        return machine.registerX().content();
     }
 }
