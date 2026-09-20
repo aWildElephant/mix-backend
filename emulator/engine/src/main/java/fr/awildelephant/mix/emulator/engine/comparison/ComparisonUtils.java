@@ -1,6 +1,7 @@
 package fr.awildelephant.mix.emulator.engine.comparison;
 
 import fr.awildelephant.mix.emulator.engine.state.ComparisonIndicator;
+import fr.awildelephant.mix.emulator.word.TwoBytesSigned;
 import fr.awildelephant.mix.emulator.word.Word;
 
 import java.util.Comparator;
@@ -12,6 +13,7 @@ import static fr.awildelephant.mix.emulator.engine.state.ComparisonIndicator.Sta
 public final class ComparisonUtils {
 
     private static final Comparator<Word> WORD_COMPARATOR = new WordComparator();
+    private static final Comparator<TwoBytesSigned> TWO_BYTES_SIGNED_COMPARATOR = new TwoBytesSignedComparator();
 
     private ComparisonUtils() {
 
@@ -19,6 +21,10 @@ public final class ComparisonUtils {
 
     public static Comparator<Word> getWordComparator() {
         return WORD_COMPARATOR;
+    }
+
+    public static Comparator<TwoBytesSigned> getTwoBytesSignedComparator() {
+        return TWO_BYTES_SIGNED_COMPARATOR;
     }
 
     public static ComparisonIndicator.State compare(Word first, Word second) {

@@ -2,6 +2,12 @@ package fr.awildelephant.mix.emulator.word;
 
 public final class TwoBytesSigned extends AbstractBytesHolder {
 
+    private static final TwoBytesSigned ZERO = fromInt(0);
+
+    public static TwoBytesSigned zero() {
+        return ZERO;
+    }
+
     public TwoBytesSigned() {
         super(13);
     }
@@ -20,11 +26,7 @@ public final class TwoBytesSigned extends AbstractBytesHolder {
         final int firstByte = extractByte(valueAbs >>> 6);
         final int secondByte = extractByte(valueAbs);
 
-        final TwoBytesSigned result = new TwoBytesSigned();
-        result.sign(sign);
-        result.b1(firstByte);
-        result.b2(secondByte);
-        return result;
+        return from(sign, firstByte, secondByte);
     }
 
     private static int extractByte(int value) {
